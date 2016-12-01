@@ -1,4 +1,4 @@
-export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
+export function RoutesConfig($stateProvider, $urlRouterProvider) {
 	'ngInject';
 
 	let getView = (viewName) => {
