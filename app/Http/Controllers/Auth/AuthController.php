@@ -8,6 +8,10 @@ use App\Model\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Config;
+use GuzzleHttp;
+use GuzzleHttp\Subscriber\Oauth\Oauth1;
+
 class AuthController extends Controller
 {
     public function login(Request $request)
@@ -25,6 +29,33 @@ class AuthController extends Controller
 			return response()->error('Invalid credentials', 401);
 		}
 		
+    }
+
+    public function google(Request $request)
+    {
+
+    	$google = new \App\Helper\GoogleLogin();
+
+		if($profile = $google->get_email($request)){
+
+	        if($user = User::where('email',trim($profile['email']))
+				->where('active',1)->first()){
+
+				$token = JWTAuth::fromUser($user);
+				return response()->success(compact('user', 'token'));
+			}else{
+				return response()->error('Invalid credentials', 401);
+			}
+
+		}else{
+			return response()->error('Check Google API Key', 401);
+		}
+
+    }
+
+    public function unlink(Request $request)
+    {
+    	Auth::logout();
     }
 
     public function register(Request $request)

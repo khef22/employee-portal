@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 
 Route::post('auth/login', 'Auth\AuthController@login');
 Route::post('auth/register', 'Auth\AuthController@register');
+Route::post('auth/google', 'Auth\AuthController@google');
+Route::post('auth/unlink', 'Auth\AuthController@unlink');
 
 Route::post('auth/password/email', 'Auth\PasswordResetController@sendResetLinkEmail');
 Route::get('auth/password/verify', 'Auth\PasswordResetController@verify');

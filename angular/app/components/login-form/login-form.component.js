@@ -10,7 +10,7 @@ class LoginFormController {
     $onInit(){
         this.username = '';
         this.password = '';
-		
+
 		if(this.$auth.isAuthenticated()){
 			this.$state.go('app.main')
 		}
@@ -30,6 +30,16 @@ class LoginFormController {
 			})
 			.catch(this.failedLogin.bind(this));
 			
+	}
+
+	authenticate(provider){
+		this.$auth.authenticate(provider)
+			.then((response) => {
+				this.$auth.setToken(response.data);
+				this.$state.go('app.main');
+				this.ToastService.show('Logged in successfully.');
+			})
+			.catch(this.failedLogin.bind(this));
 	}
 
 	failedLogin(response) {
