@@ -25,7 +25,7 @@ class AppHeaderController{
     logout(){
         if (this.$auth.isAuthenticated()) {
             this.$auth.logout();
-            this.$state.go('app.login');
+            this.$state.go('app2.login');
             this.ToastService.show('You are now logged out.');
 
             this.$auth.unlink('google')
