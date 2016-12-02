@@ -7,6 +7,9 @@ class AppSidenavController{
 
     $onInit(){
     }
+
+    test(){
+    }
 }
 
 export const AppSidenavComponent = {

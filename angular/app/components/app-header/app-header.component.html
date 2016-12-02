@@ -1,3 +1,64 @@
 <md-toolbar class="md-theme-indigo">
-    <button ng-click="vm.logout()" ng-if="vm.islogged">Logout</button>
+    <div class="md-toolbar-tools">
+        <!-- <h2>
+          <span>Toolbar with Standard Buttons</span>
+        </h2> -->
+        <span flex></span>
+        <md-menu>
+            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
+                <md-icon md-font-set="material-icons"> notifications </md-icon>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button>
+                        <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                        Notification 1
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button>
+                        <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                        Notification 2
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button>
+                        <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                        Notification 3
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button>
+                        <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                        Notification 4
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button>
+                        <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                        Notification 5
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        <md-menu>
+            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
+                <md-icon md-font-set="material-icons"> view_module </md-icon>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button>
+                        <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                        Profile Settings
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button>
+                        <md-icon md-font-set="material-icons" ng-click="vm.logout()"> power_settings_new </md-icon>
+                        Log out
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
 </md-toolbar>
