@@ -23,12 +23,22 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 			abstract: true,
             data: {},
 			views: {
+				sidenav: {
+					templateUrl: getView('sidenav')
+				},
 				header: {
 					templateUrl: getView('header')
 				},
 				footer: {
 					templateUrl: getView('footer')
 				},
+				main: {}
+			}
+		})
+		.state('app2', {
+			abstract: true,
+            data: {},
+			views: {
 				main: {}
 			}
 		})
@@ -41,7 +51,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
                 }
             }
         })
-        .state('app.login', {
+        .state('app2.login', {
 			url: '/login',
 			views: {
 				'main@': {

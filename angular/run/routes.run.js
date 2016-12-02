@@ -8,7 +8,7 @@ export function RoutesRun($state, $auth, $transitions) {
     let redirectToLogin = () => {
         'ngInject';
         if (!$auth.isAuthenticated()) {
-            return $state.target('app.login', undefined, {location: true});
+            return $state.target('app2.login', undefined, {location: true});
         }
     };
 
