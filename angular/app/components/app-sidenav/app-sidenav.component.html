@@ -1,0 +1,29 @@
+<md-content layout="row" flex>
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+        <md-toolbar class="md-theme-indigo">
+            <h1 class="md-toolbar-tools">Employee Portal</h1>
+        </md-toolbar>
+        <md-content>
+            <md-list flex>
+                <md-list-item class="md-2-line avatar-nav">
+                    <img ng-src="http://intranetdev.zylun.com:8082/files_uploaded/2011-449/abao 10000.jpg" class="md-avatar" alt="asd" md-whiteframe="2" />
+                    <div class="md-list-item-text" layout="column">
+                        <h3>Emmanuel</h3>
+                        <p>PHP Developer</p>
+                    </div>
+                </md-list-item>
+                <md-divider></md-divider>
+                <md-list-item class="md-2-line control-btn">
+                    <md-button class="md-raised md-warn">Time in</md-button>
+                    <md-button class="md-raised md-primary" ng-disabled="true">Break</md-button>
+                    <md-button class="md-raised md-warn" ng-disabled="true">Time out</md-button>
+                </md-list-item>
+                <md-divider></md-divider>
+                <md-list-item class="md-1-line">
+                    <md-icon md-svg-icon="communication:phone" ng-class="{'md-avatar-icon': phone.options.avatarIcon}"></md-icon>
+                    <div class="md-list-item-text" layout="column">
+                        <h3>Emmanuel</h3>
+                    </div>
+                </md-list-item>
+    </md-sidenav>
+</md-content>
