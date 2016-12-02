@@ -1,3 +1,10 @@
-<div ui-view="header"></div>
-<div ui-view="main"></div>
-<div ui-view="footer"></div>
+<md-content layout="row" flex>
+    <div ui-view="sidenav" md-whiteframe="4"></div>
+    <div layout="column" flex>
+        <div ui-view="header"></div>
+        <div layout="column" md-scroll-y flex>
+            <div ui-view="main"></div>
+            <div ui-view="footer"></div>
+        </div>
+    </div>
+</md-content>
