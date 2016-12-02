@@ -1,28 +1,43 @@
 <md-content layout="row" flex>
     <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
-        <md-toolbar class="md-theme-indigo">
+        <md-toolbar class="toolbar-nav">
             <h1 class="md-toolbar-tools">Employee Portal</h1>
         </md-toolbar>
-        <md-content>
             <md-list flex>
-                <md-list-item class="md-2-line avatar-nav">
+                <md-list-item class="md-3-line avatar-nav">
                     <img ng-src="http://intranetdev.zylun.com:8082/files_uploaded/2011-449/abao 10000.jpg" class="md-avatar" alt="asd" md-whiteframe="2" />
                     <div class="md-list-item-text" layout="column">
                         <h3>Emmanuel</h3>
-                        <p>PHP Developer</p>
+                        <p class="sub-text">PHP Developer</p>
+                        <p class="sub-text"><md-icon md-font-set="material-icons"> access_time </md-icon> 15:37:00</p>
                     </div>
                 </md-list-item>
                 <md-divider></md-divider>
-                <md-list-item class="md-2-line control-btn">
+                <md-list-item class="control-btn">
                     <md-button class="md-raised md-warn">Time in</md-button>
                     <md-button class="md-raised md-primary" ng-disabled="true">Break</md-button>
                     <md-button class="md-raised md-warn" ng-disabled="true">Time out</md-button>
                 </md-list-item>
-                <md-divider></md-divider>
-                <md-list-item>
-                    <md-icon md-font-icon="icon-home"></md-icon>
-                    <p> test</p>
+                <md-divider class="empty-space"></md-divider>
+                <md-list-item class='menu' ng-click="vm.test()">
+                    <md-icon md-font-set="material-icons"> home </md-icon>
+                    <p>Home</p>
                 </md-list-item>
-                <md-divider></md-divider>
+                <md-list-item class='menu' ng-click="vm.test()">
+                    <md-icon md-font-set="material-icons"> speaker_notes </md-icon>
+                    <p>Announcements</p>
+                </md-list-item>
+                <md-list-item class='menu' ng-click="vm.test()">
+                    <md-icon md-font-set="material-icons"> perm_contact_calendar </md-icon>
+                    <p>Time Card</p>
+                </md-list-item>
+                <md-list-item class='menu' ng-click="vm.test()">
+                    <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                    <p>Profile</p>
+                </md-list-item>
+                <md-list-item class='menu' ng-click="vm.test()">
+                    <md-icon md-font-set="material-icons"> domain </md-icon>
+                    <p>Company Info.</p>
+                </md-list-item>
     </md-sidenav>
 </md-content>

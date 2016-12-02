@@ -15,6 +15,9 @@
     <![endif]-->
 
     <style><?php require(public_path("css/critical.css")) ?></style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+ <link href="https://material.angularjs.org/latest/angular-material.min.css" rel="stylesheet">
 
 </head>
 <body>
