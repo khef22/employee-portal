@@ -12,4 +12,4 @@ public/storage
 storage/*.key
 .env.*.php
 .env.php
-.env
+public/service-worker.js
