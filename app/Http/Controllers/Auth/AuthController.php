@@ -39,7 +39,7 @@ class AuthController extends Controller
 		if($profile = $google->get_email($request)){
 
 	        if($user = User::where('email',trim($profile['email']))
-				->where('active',1)->first()){
+				->where('active',1)->first()->employee){
 
 				$token = JWTAuth::fromUser($user);
 				return response()->success(compact('user', 'token'));
@@ -92,7 +92,7 @@ class AuthController extends Controller
 				Auth::login($user);
 				$token = JWTAuth::fromUser($user);
 				
-				return array($user,$token);
+				return array($user->employee,$token);
 			}
 			
 		}

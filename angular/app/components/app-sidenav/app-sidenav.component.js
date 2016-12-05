@@ -1,14 +1,14 @@
 class AppSidenavController{
-    constructor(){
+    constructor($sessionStorage){
         'ngInject';
 
-        //
+        this.$sessionStorage = $sessionStorage;
     }
 
     $onInit(){
-    }
-
-    test(){
+        this.user = angular.fromJson(this.$sessionStorage.user);
+        this.name = this.user.firstname+' '+this.user.lastname;
+        this.empID = this.user.employee_id;
     }
 }
 

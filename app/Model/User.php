@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function employee()
+    {
+        return $this->hasOne('App\Model\Employee','user_id');
+    }
 }
