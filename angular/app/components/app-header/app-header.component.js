@@ -43,6 +43,14 @@ class AppHeaderController{
       //originatorEv = ev;
       $mdOpenMenu(ev);
     }
+
+    openSideNav(navID) {
+        $mdSidenav(navID)
+          .toggle()
+          .then(function () {
+            //do something here.
+          });
+    }
 }
 
 export const AppHeaderComponent = {

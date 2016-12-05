@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel Angular Material Starter</title>
+    <title>Employee Portal</title>
 
     <meta name="theme-color" content="#0690B7">
 
@@ -14,10 +14,10 @@
     <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
     <![endif]-->
 
-    <style><?php require(public_path("css/critical.css")) ?></style>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://material.angularjs.org/latest/angular-material.min.css" rel="stylesheet">
 
- <link href="https://material.angularjs.org/latest/angular-material.min.css" rel="stylesheet">
+    <style><?php require(public_path("css/critical.css")) ?></style>
 
 </head>
 <body>

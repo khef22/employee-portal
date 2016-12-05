@@ -1,11 +1,16 @@
-<md-toolbar class="md-theme-indigo">
+<md-toolbar>
     <div class="md-toolbar-tools">
         <!-- <h2>
           <span>Toolbar with Standard Buttons</span>
         </h2> -->
+        <md-menu>
+            <md-button class="md-icon-button" ng-click="vm.openSideNav()" hide-gt-sm>
+                <md-icon md-font-set="material-icons"> dehaze </md-icon>
+            </md-button>
+        </md-menu>
         <span flex></span>
         <md-menu>
-            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
+            <md-button class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
                 <md-icon md-font-set="material-icons"> notifications </md-icon>
             </md-button>
             <md-menu-content width="4">
@@ -42,7 +47,7 @@
             </md-menu-content>
         </md-menu>
         <md-menu>
-            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
+            <md-button class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
                 <md-icon md-font-set="material-icons"> view_module </md-icon>
             </md-button>
             <md-menu-content width="4">
