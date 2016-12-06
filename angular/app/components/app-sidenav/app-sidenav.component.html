@@ -15,8 +15,8 @@
                 <md-divider></md-divider>
                 <md-list-item class="control-btn">
                     <md-button class="md-raised md-success" ng-disabled="vm.clockBtnIn" ng-click="vm.clockTimeIn()">Time in</md-button>
-                    <md-button class="md-raised md-primary" ng-disabled="vm.clockBtnBreak" ng-click="vm.clockBreak()">Break</md-button>
-                    <md-button class="md-raised md-accent" ng-disabled="vm.clockBtnOut" ng-click="vm.clockTimeIn()">Time out</md-button>
+                    <md-button class="md-raised md-primary" ng-disabled="vm.clockBtnBreak" ng-click="vm.clockBreak()">{{ vm.clockBtnBreakText }}</md-button>
+                    <md-button class="md-raised md-accent" ng-disabled="vm.clockBtnOut" ng-click="vm.clockTimeOut()">Time out</md-button>
                 </md-list-item>
                 <md-divider class="empty-space"></md-divider>
                 <md-list-item class='menu' ng-click="vm.test()">

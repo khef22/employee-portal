@@ -93,12 +93,13 @@ class TimeLogController extends EmployeeController
     public function timeLogStatus()
     {
     	$lastDate = $this->employee->timeLogs()->last() ? $this->employee->timeLogs()->last()->date : 'No date to search.';
-    	$data = $this->employee->timeLogs()
+    	$clockinTypes = $this->employee->timeLogs()
 			->where('date', $lastDate)
 			->orderBy('clockin_type', 'desc')
-			->first(['clockin_type']);
+			->pluck('clockin_type')
+			->toArray();
 
-    	return response()->json(compact('data'));
+    	return response()->json(compact('clockinTypes', 'lastDate'));
     }
 
     private function timeLogCheck($type)

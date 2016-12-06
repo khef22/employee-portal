@@ -38,12 +38,12 @@ class AppHeaderController{
       $mdOpenMenu(ev);
     }
 
-    openSideNav(navID) {
-        $mdSidenav(navID)
-          .toggle()
-          .then(function () {
-            //do something here.
-          });
+    openSideNav() {
+        // $mdSidenav(navID)
+        //   .toggle()
+        //   .then(function () {
+        //     //do something here.
+        //   });
     }
 }
 
