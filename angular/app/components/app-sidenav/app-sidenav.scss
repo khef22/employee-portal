@@ -42,7 +42,7 @@
 	}
 }
 
-.md-success {
+.md-success:not([disabled]) {
 	background-color: #4CAF50 !important;
 	color: #fff !important;
 }

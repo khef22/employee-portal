@@ -29,13 +29,7 @@ class AppHeaderController{
             this.$state.go('app2.login');
             this.ToastService.show('You are now logged out.');
 
-            this.$auth.unlink('google')
-                .then(function(response) {
-                
-                })
-                .catch(function(response) {
-                
-                });
+            this.$auth.unlink('google');
         }
     }
 

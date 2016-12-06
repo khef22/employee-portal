@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -29,6 +29,6 @@ class User extends Authenticatable
 
     public function employee()
     {
-        return $this->hasOne('App\Model\Employee','user_id');
+        return $this->hasOne('App\Models\Employee','user_id');
     }
 }
