@@ -23,14 +23,11 @@ class AppSidenavController{
             function(response) {
                 this.status = response;
 
-                this.clockBtnIn = (this.status.clockinTypes.indexOf(1) > -1 && this.status.clockinTypes.indexOf(4) < 0 ) || false;
-                this.clockBtnBreak = (this.status.clockinTypes.indexOf(4) > -1 || this.status.clockinTypes.indexOf(3) > -1) || false;
+                this.clockBtnIn = (this.status.clockinTypes != 4) || false;
+                this.clockBtnBreak = (this.status.clockinTypes == 4) || false;
                 this.clockBtnBreakText = this.breakInText();
 
-                this.clockBtnOut = (
-                        this.status.clockinTypes.indexOf(4) > -1 ||
-                        ( this.status.clockinTypes.indexOf(2) > -1 && this.status.clockinTypes.indexOf(3) < 0 )
-                    ) || false;
+                this.clockBtnOut = (this.status.clockinTypes == 2 || this.status.clockinTypes == 4) || false;
             }.bind(this)
         );
     }
@@ -55,16 +52,7 @@ class AppSidenavController{
     }
 
     clockBreak() {
-        var url = (this.status.clockinTypes.indexOf(2) > -1) ? 'break/out' : 'break/in';
-        this.API.all(url).get('').then(
-            function() {
-                this.timeLogStatus();
-            }.bind(this)
-        );
-    }
-
-    clockBreakOut() {
-        var url = 'break/out';
+        var url = (this.status.clockinTypes == 2) ? 'break/out' : 'break/in';
         this.API.all(url).get('').then(
             function() {
                 this.timeLogStatus();
@@ -73,13 +61,7 @@ class AppSidenavController{
     }
 
     breakInText() {
-        if(this.status.clockinTypes.indexOf(1) < 0 || this.status.clockinTypes.indexOf(3) > -1 ||
-            (this.status.clockinTypes.indexOf(1) > -1 && this.status.clockinTypes.indexOf(4) > -1))
-        {
-            return "Break";
-        }
-
-        if(this.status.clockinTypes.indexOf(2) < 0 || this.status.clockinTypes.indexOf(1) < 0 || this.status.clockinTypes.indexOf(4) > -1)
+        if(this.status.clockinTypes != 2) 
         {
             return "Break";
         }

@@ -15,12 +15,7 @@ class TimeLogController extends EmployeeController
     	$error = false;
 
     	if(
-    		(
-    			$this->timeLogCheck(1)->count() 
-    			&& $lastDate == Carbon::now()->toDateString()
-    		)
-    		|| $this->timeLogCheck(4)->isEmpty()
-    		&& $this->employee->timeLogs()->get()->count()
+    		$this->timeLogLastClockType() != 4
     	)
     	{
     		$error = true;
@@ -37,9 +32,8 @@ class TimeLogController extends EmployeeController
     	$error = false;
 
     	if(
-    		$this->timeLogCheck(2)->count()
-    		|| $this->timeLogCheck(4)->count()
-    		|| $this->timeLogCheck(1)->isEmpty()
+    		$this->timeLogLastClockType() == 2
+    		|| $this->timeLogLastClockType() == 4
     	)
     	{
     		$error = true;
@@ -56,10 +50,7 @@ class TimeLogController extends EmployeeController
     	$error = false;
 
     	if(
-    		$this->timeLogCheck(3)->count()
-    		|| $this->timeLogCheck(2)->isEmpty()
-    		|| $this->timeLogCheck(4)->count()
-    		|| $this->timeLogCheck(1)->isEmpty()
+    		$this->timeLogLastClockType() != 2
     	)
     	{
     		$error = true;
@@ -74,11 +65,9 @@ class TimeLogController extends EmployeeController
     public function clockOut()
     {
     	$error = false;
-
     	if(
-    		$this->timeLogCheck(4)->count() 
-    		|| ( $this->timeLogCheck(2)->count() && $this->timeLogCheck(3)->isEmpty() )
-    		|| $this->timeLogCheck(1)->isEmpty() 
+    		$this->timeLogLastClockType() == 2
+    		|| $this->timeLogLastClockType() == 4
     	)
     	{
     		$error = true;
@@ -93,23 +82,20 @@ class TimeLogController extends EmployeeController
     public function timeLogStatus()
     {
     	$lastDate = $this->employee->timeLogs()->last() ? $this->employee->timeLogs()->last()->date : 'No date to search.';
-    	$clockinTypes = $this->employee->timeLogs()
-			->where('date', $lastDate)
-			->orderBy('clockin_type', 'desc')
-			->pluck('clockin_type')
-			->toArray();
+    	$clockinTypes = $this->timeLogLastClockType();
 
     	return response()->json(compact('clockinTypes', 'lastDate'));
     }
 
-    private function timeLogCheck($type)
+    private function timeLogLastClockType()
     {
     	$lastDate = $this->employee->timeLogs()->last() ? $this->employee->timeLogs()->last()->date : 'No date to search.';
-
-    	return $this->employee->timeLogs()
+    	$clockinType = $this->employee->timeLogs()
 			->where('date', $lastDate)
-			->where('clockin_type', $type)
-			->get();
+			->orderBy('id', 'desc')
+			->first();
+
+    	return $clockinType ? $clockinType->clockin_type : 0;
     }
 
     private function timeLogSave($type, $clockOut = false)
