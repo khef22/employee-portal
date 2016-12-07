@@ -9,7 +9,8 @@
                     <div class="md-list-item-text" layout="column">
                         <h3>{{vm.name}}</h3>
                         <p class="sub-text">{{vm.empID}}</p>
-                        <p class="sub-text"><md-icon md-font-set="material-icons"> access_time </md-icon> 15:37:00</p>
+                        <p class="sub-text"><md-icon md-font-set="material-icons"> access_time </md-icon> Work Hours: {{vm.status.work.time | secondsToDateTime | date:'HH:mm:ss'}}</p>
+                        <p class="sub-text" ng-class="{'time-hidden': !vm.status.break.isOnBreak}"><md-icon md-font-set="material-icons"> access_time </md-icon> Break: {{vm.status.break.time | secondsToDateTime | date:'HH:mm:ss'}}</p>
                     </div>
                 </md-list-item>
                 <md-divider></md-divider>

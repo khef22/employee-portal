@@ -1,9 +1,10 @@
 class AppSidenavController{
-    constructor($sessionStorage, API, $filter){
+    constructor($sessionStorage, API, $filter, $interval){
         'ngInject';
 
         this.$sessionStorage = $sessionStorage;
         this.$filter = $filter;
+        this.$interval = $interval;
         this.API = API;
     }
 
@@ -15,13 +16,19 @@ class AppSidenavController{
         this.clockBtnOut = true;
         this.clockBtnBreak = true;
         this.clockBtnBreakText = "Break";
+        this.status = {
+            'break': {'isOnBreak': false, 'time': 0},
+            'work': {'isWorking': false, 'time': 0}
+        };
         this.timeLogStatus();
     }
 
     timeLogStatus() {
         this.API.all('clock/status').get('').then(
             function(response) {
-                this.status = response;
+                angular.extend(this.status, response);
+
+                this.countupTimer();
 
                 this.clockBtnIn = (this.status.clockinTypes != 4) || false;
                 this.clockBtnBreak = (this.status.clockinTypes == 4) || false;
@@ -32,14 +39,37 @@ class AppSidenavController{
         );
     }
 
+    countupTimer() {
+        if(this.status.break.isOnBreak)
+        {
+            this.$interval.cancel(this.breakInterval);
+            this.breakInterval = this.$interval(function() {
+                this.status.break.time += 1;
+            }.bind(this), 1000);
+        }
+        else
+        {
+            this.$interval.cancel(this.breakInterval);
+        }
+
+        if(this.status.work.isWorking)
+        {
+            this.$interval.cancel(this.workInterval);
+            this.workInterval = this.$interval(function() {
+                this.status.work.time += 1;
+            }.bind(this), 1000);
+        }
+        else
+        {
+            this.$interval.cancel(this.workInterval);
+        }
+    }
+
     clockTimeIn() {
         this.API.all('clock/in').get('').then(
             function() {
                 this.timeLogStatus();
-            }.bind(this),
-            function() {
-                console.log("You cant Time-in twice or more on the same day.");
-            }
+            }.bind(this)
         );
     }
 

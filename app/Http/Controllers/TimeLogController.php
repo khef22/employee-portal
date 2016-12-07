@@ -83,8 +83,44 @@ class TimeLogController extends EmployeeController
     {
     	$lastDate = $this->employee->timeLogs()->last() ? $this->employee->timeLogs()->last()->date : 'No date to search.';
     	$clockinTypes = $this->timeLogLastClockType();
+    	$break = [
+    		"isOnBreak" => ($clockinTypes == 2),
+    		"time" => $this->timeLogBreakDiff()
+    	];
+    	$work = [
+    		"isWorking" => ($clockinTypes >= 1 &&  $clockinTypes < 4),
+    		"time" => $this->timeLogWorkDiff()
+    	];
 
-    	return response()->json(compact('clockinTypes', 'lastDate'));
+    	return response()->json(compact('clockinTypes', 'lastDate', 'break', 'work'));
+    }
+
+    private function timeLogBreakDiff()
+    {
+    	$result = 0;
+
+    	if($this->timeLogLastClockType() == 2)
+    	{
+    		$startBreak = Carbon::parse($this->employee->timeLogs()->last()->time);
+    		$currentBreak = Carbon::now();
+    		$result = $startBreak->diffInSeconds($currentBreak);
+    	}
+
+    	return $result;
+    }
+
+    private function timeLogWorkDiff()
+    {
+    	$result = 0;
+
+    	if($this->timeLogLastClockType() >= 1 && $this->timeLogLastClockType() < 4)
+    	{
+    		$startBreak = Carbon::parse($this->employee->timeLogs()->where('clockin_type', 1)->last()->time);
+    		$currentBreak = Carbon::now();
+    		$result = $startBreak->diffInSeconds($currentBreak);
+    	}
+
+    	return $result;
     }
 
     private function timeLogLastClockType()
