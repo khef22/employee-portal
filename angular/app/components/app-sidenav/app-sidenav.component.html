@@ -9,14 +9,15 @@
                     <div class="md-list-item-text" layout="column">
                         <h3>{{vm.name}}</h3>
                         <p class="sub-text">{{vm.empID}}</p>
-                        <p class="sub-text"><md-icon md-font-set="material-icons"> access_time </md-icon> 15:37:00</p>
+                        <p class="sub-text"><md-icon md-font-set="material-icons"> access_time </md-icon> Work Hours: {{vm.status.work.time | secondsToDateTime | date:'HH:mm:ss'}}</p>
+                        <p class="sub-text" ng-class="{'time-hidden': !vm.status.break.isOnBreak}"><md-icon md-font-set="material-icons"> access_time </md-icon> Break: {{vm.status.break.time | secondsToDateTime | date:'HH:mm:ss'}}</p>
                     </div>
                 </md-list-item>
                 <md-divider></md-divider>
                 <md-list-item class="control-btn">
                     <md-button class="md-raised md-success" ng-disabled="vm.clockBtnIn" ng-click="vm.clockTimeIn()">Time in</md-button>
-                    <md-button class="md-raised md-primary" ng-disabled="vm.clockBtnBreak" ng-click="vm.clockBreak()">Break</md-button>
-                    <md-button class="md-raised md-accent" ng-disabled="vm.clockBtnOut" ng-click="vm.clockTimeIn()">Time out</md-button>
+                    <md-button class="md-raised md-primary" ng-disabled="vm.clockBtnBreak" ng-click="vm.clockBreak()">{{ vm.clockBtnBreakText }}</md-button>
+                    <md-button class="md-raised md-accent" ng-disabled="vm.clockBtnOut" ng-click="vm.clockTimeOut()">Time out</md-button>
                 </md-list-item>
                 <md-divider class="empty-space"></md-divider>
                 <md-list-item class='menu' ng-click="vm.test()">

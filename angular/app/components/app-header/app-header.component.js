@@ -39,11 +39,11 @@ class AppHeaderController{
     }
 
     openSideNav() {
-        /*$mdSidenav(navID)
-          .toggle()
-          .then(function () {
-            //do something here.
-          });*/
+        // $mdSidenav(navID)
+        //   .toggle()
+        //   .then(function () {
+        //     //do something here.
+        //   });
     }
 }
 
