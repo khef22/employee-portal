@@ -1,3 +1,4 @@
+import {AppPurchaseRequestsComponent} from './app/components/app-purchase-requests/app-purchase-requests.component';
 import {AppSidenavComponent} from './app/components/app-sidenav/app-sidenav.component';
 import {AppHeaderComponent} from './app/components/app-header/app-header.component';
 import {AppRootComponent} from './app/components/app-root/app-root.component';
@@ -8,6 +9,7 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('appPurchaseRequests', AppPurchaseRequestsComponent)
 	.component('appSidenav', AppSidenavComponent)
 	.component('appHeader', AppHeaderComponent)
 	.component('appRoot', AppRootComponent)
