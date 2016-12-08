@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use App\Models\TimeLog;
 use Illuminate\Http\Request;
 
-class TimeLogController extends EmployeeController
+class TimeLogController extends BaseController
 {
     public function clockIn()
     {

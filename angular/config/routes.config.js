@@ -82,5 +82,13 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
                     templateUrl: getView('reset-password')
                 }
             }
+        })
+        .state('app.update_profile', {
+            url: '/profile/update',
+            views: {
+                'main@': {
+                    templateUrl: getView('update-profile-form')
+                }
+            }
         });
 }

@@ -6,6 +6,7 @@ import {ResetPasswordComponent} from './app/components/reset-password/reset-pass
 import {ForgotPasswordComponent} from './app/components/forgot-password/forgot-password.component';
 import {LoginFormComponent} from './app/components/login-form/login-form.component';
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
+import {UpdateProfileFormComponent} from './app/components/update-profile-form/update-profile-form.component';
 
 angular.module('app.components')
 	.component('appSidenav', AppSidenavComponent)
@@ -15,5 +16,6 @@ angular.module('app.components')
 	.component('resetPassword', ResetPasswordComponent)
 	.component('forgotPassword', ForgotPasswordComponent)
 	.component('loginForm', LoginFormComponent)
-	.component('registerForm', RegisterFormComponent);
+	.component('registerForm', RegisterFormComponent)
+	.component('updateProfileForm', UpdateProfileFormComponent);
 
