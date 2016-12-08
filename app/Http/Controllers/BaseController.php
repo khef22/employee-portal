@@ -6,12 +6,14 @@ use JWTAuth;
 use App\Models\TimeLog;
 use Illuminate\Http\Request;
 
-class EmployeeController extends Controller
+class BaseController extends Controller
 {
 	protected $employee;
+	protected $user;
 
 	public function __construct()
 	{
+		$this->user = JWTAuth::parseToken()->toUser();
 		$this->employee = JWTAuth::parseToken()->toUser()->employee()->first();
 	}
 }
