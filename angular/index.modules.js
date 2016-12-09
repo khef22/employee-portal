@@ -15,12 +15,7 @@ angular.module('app.services', []);
 angular.module('app.config', []);
 angular.module('app.directives', []);
 angular.module('app.components', [
-<<<<<<< Updated upstream
-	'ui.router', 'ngMaterial', 'angular-loading-bar',
-	'restangular', 'ngStorage', 'satellizer'
-=======
 	'ui.router', 'ngMaterial', 'angular-loading-bar', 'md.data.table',
 	'ngMessages', 'restangular', 'ngStorage', 'satellizer'
->>>>>>> Stashed changes
 ]);
 

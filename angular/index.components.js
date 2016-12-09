@@ -8,12 +8,10 @@ import {ForgotPasswordComponent} from './app/components/forgot-password/forgot-p
 import {LoginFormComponent} from './app/components/login-form/login-form.component';
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 import {UpdateProfileFormComponent} from './app/components/update-profile-form/update-profile-form.component';
-<<<<<<< Updated upstream
-=======
+
 
 //Inject Schedule Request Component
 import {ScheduleRequestsComponent} from './app/components/schedule-requests/schedule-requests.component';
->>>>>>> Stashed changes
 
 angular.module('app.components')
 	.component('appPurchaseRequests', AppPurchaseRequestsComponent)
@@ -25,10 +23,5 @@ angular.module('app.components')
 	.component('forgotPassword', ForgotPasswordComponent)
 	.component('loginForm', LoginFormComponent)
 	.component('registerForm', RegisterFormComponent)
-<<<<<<< Updated upstream
-	.component('updateProfileForm', UpdateProfileFormComponent);
-
-=======
 	.component('scheduleRequests', ScheduleRequestsComponent)
 	.component('updateProfileForm', UpdateProfileFormComponent);
->>>>>>> Stashed changes

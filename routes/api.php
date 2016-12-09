@@ -28,8 +28,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::group(['middleware' => ['api']], function () {
-<<<<<<< Updated upstream
-=======
 
 	//Requests Route Group
 	Route::group(['prefix' => 'requests'], function(){
@@ -37,12 +35,12 @@ Route::group(['middleware' => ['api']], function () {
 		Route::post('schedule/add', 'ScheduleRequestsController@addRequest');
 	});
 
->>>>>>> Stashed changes
 	Route::group(['prefix' => 'clock'], function(){
 	    Route::get('in', 'TimeLogController@clockIn');
 	    Route::get('out', 'TimeLogController@clockOut');
 	    Route::get('status', 'TimeLogController@timeLogStatus');
 	});
+	
 	Route::group(['prefix' => 'break'], function(){
 	    Route::get('in', 'TimeLogController@breakIn');
 	    Route::get('out', 'TimeLogController@breakOut');
