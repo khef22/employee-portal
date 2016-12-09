@@ -15,6 +15,11 @@ class Employee extends Model
     	return $this->hasMany('App\Models\TimeLog', 'emp_id');
     }
 
+    public function scheduleRequests()
+    {
+        return $this->hasMany('App\Models\ScheduleRequest', 'emp_id');
+    }
+
     public function supervisorUser()
     {
     	return $this->belongsTo('App\Models\User', 'supervisor_id');

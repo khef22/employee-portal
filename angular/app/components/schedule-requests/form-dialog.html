@@ -1,0 +1,207 @@
+<md-dialog aria-label="Log New Request">
+  <form ng-cloak>
+
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Log New Request</h2>      
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content class="md-dialog-content">
+        
+      <form name="scheduleRequestForm" ng-model="vmDialog.scheduleRequestForm" novalidate>
+
+        <div layout="column" layout-md layout-fill layout-wrap="false" layout-align="space-around stretch">
+          
+          <div flex="100">
+            
+            <h3>Timezone</h3>
+            
+            <md-input-container>
+              <label>Select Timezone</label>
+              <md-select aria-label="Timezone" ng-required="true" required name="timezone" ng-model="vmDialog.record.timezone">
+                <md-option ng-value="timezone" ng-selected="timezone.substr(1,6) == vmDialog.currentDateTimeZone" ng-repeat="timezone in vmDialog.timezones">{{ timezone }}</md-option>
+              </md-select>
+              <div ng-messages="scheduleRequestForm.timezone.$error">
+                <div ng-message="required">This field is required!</div>
+              </div>  
+            </md-input-container>
+          </div>
+
+          <div flex="100">
+
+            <h3>Select Date you want to swap with</h3>
+            
+            <div layout="row" layout-wrap="false" layout-fill layout-align="space-around stretch">
+              
+              <div flex="50">             
+                  <!-- <h5>Starts From :</h5> -->
+                  <md-input-container>
+                    <label>Starts From :</label>
+                    <md-datepicker required name="start_date_cs" md-open-on-focus ng-model="vmDialog.record.start_date_cs" md-min-date="vmDialog.minDate" md-date-filter="vmDialog.onlyZylunDays"></md-datepicker>   
+                    <div ng-messages="scheduleRequestForm.start_date_cs.$error">
+                      <div ng-message="valid">The entered value is not a date!</div>
+                      <div ng-message="required">This date is required!</div>
+                      <div ng-message="mindate">Date is too early!</div>
+                      <div ng-message="maxdate">Date is too late!</div>
+                      <div ng-message="filtered">Only weekends are allowed!</div>
+                    </div>
+                  </md-input-container>
+              </div>
+
+              <div flex="50">
+                <!-- <h5>Starts To :</h5> -->
+                <md-input-container>
+                  <label>Starts To :</label>
+                  <md-datepicker ng-required="true" required md-open-on-focus name="end_date_cs" md-min-date="vmDialog.minDate" md-date-filter="vmDialog.onlyZylunDays" ng-model="vmDialog.record.end_date_cs"></md-datepicker> 
+                  <div ng-messages="scheduleRequestForm.end_date_cs.$error">
+                    <div ng-message="valid">The entered value is not a date!</div>
+                    <div ng-message="required">This date is required!</div>
+                    <div ng-message="mindate">Date is too early!</div>
+                    <div ng-message="maxdate">Date is too late!</div>
+                    <div ng-message="filtered">Only weekends are allowed!</div>
+                  </div>
+                </md-input-container>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div flex="100">
+            <h3>Schedule Date</h3>
+
+            <div layout="row" layout-wrap="false" layout-fill layout-align="space-around stretch">
+              
+              <div flex="50">
+                  <!-- <h5>Starts From :</h5> -->
+                  <md-input-container>
+                    <label>Starts From :</label>
+                    <md-datepicker md-min-date="vmDialog.minDate" md-open-on-focus md-date-filter="vmDialog.onlyZylunDays" required="true" required name="newstart_date_cs" ng-model="vmDialog.record.newstart_date_cs"></md-datepicker>
+                    <div ng-messages="scheduleRequestForm.newstart_date_cs.$error">
+                      <div ng-message="valid">The entered value is not a date!</div>
+                      <div ng-message="required">This date is required!</div>
+                      <div ng-message="mindate">Date is too early!</div>
+                      <div ng-message="maxdate">Date is too late!</div>
+                      <div ng-message="filtered">Only weekends are allowed!</div>
+                    </div>
+                  </md-input-container>
+              </div>
+
+              <div flex="50">
+                  <!-- <h5>Starts To :</h5> -->
+                  <md-input-container>
+                    <label>Starts To :</label>
+                    <md-datepicker required name="newend_date_cs" md-open-on-focus ng-model="vmDialog.record.newend_date_cs"></md-datepicker>
+                    <div ng-messages="scheduleRequestForm.newend_date_cs.$error">
+                      <div ng-message="valid">The entered value is not a date!</div>
+                      <div ng-message="required">This date is required!</div>
+                      <div ng-message="mindate">Date is too early!</div>
+                      <div ng-message="maxdate">Date is too late!</div>
+                      <div ng-message="filtered">Only weekends are allowed!</div>
+                    </div>
+                  </md-input-container>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div flex="100">
+
+            <h3>Schedule Time</h3>
+
+            <div layout="row" layout-wrap="false" layout-fill layout-align="space-around stretch">
+              
+              <div flex>
+                
+                <h5>Starts At :</h5>
+
+                <md-input-container>
+                  <label>Hours</label>
+                  <md-select ng-model="vmDialog.record.start_hr_cs" ng-required="true" name="start_hr_cs">
+                    <md-option ng-repeat="hours in vmDialog.time_hours" value="{{hours}}">{{hours}}</md-option>
+                  </md-select>  
+                </md-input-container>
+
+                <md-input-container>
+                  <label>Minutes</label>
+                  <md-select ng-model="vmDialog.record.start_min_cs" ng-required="true " name="start_min_cs">
+                    <md-option ng-repeat="minutes in vmDialog.time_minutes" value="{{minutes}}">{{minutes}}</md-option>
+                  </md-select>                 
+                </md-input-container>
+                
+                <md-input-container>
+                  <label>AM/PM</label>
+                  <md-select ng-model="vmDialog.record.start_am_cs" ng-required="true" name="start_am_cs">
+                    <md-option ng-repeat="am_pm in vmDialog.time_am_pm" value="{{am_pm}}">{{am_pm}}</md-option>
+                  </md-select>
+                </md-input-container>
+
+              </div>
+
+              <div flex>
+
+                <h5>Ends At :</h5>
+
+                <md-input-container>
+                  <label>Hours</label>
+                  <md-select ng-model="vmDialog.record.end_hr_cs" ng-required="true" name="end_hr_cs">
+                    <md-option ng-repeat="hours in vmDialog.time_hours" value="{{hours}}">{{hours}}</md-option>
+                  </md-select>  
+                </md-input-container>
+
+                <md-input-container>
+                  <label>Minutes</label>
+                  <md-select ng-model="vmDialog.record.end_min_cs" ng-required="true" name="end_min_cs">
+                    <md-option ng-repeat="minutes in vmDialog.time_minutes" value="{{minutes}}">{{minutes}}</md-option>
+                  </md-select>                 
+                </md-input-container>
+
+                <md-input-container>
+                  <label>AM/PM</label>
+                  <md-select ng-model="vmDialog.record.end_am_cs" ng-required="true" name="end_am_cs">
+                    <md-option ng-repeat="am_pm in vmDialog.time_am_pm" value="{{am_pm}}">{{am_pm}}</md-option>
+                  </md-select>
+                </md-input-container>
+                
+              </div>
+
+            </div>
+
+          </div>
+
+          <div flex="100">
+              <md-input-container>
+                <h5>Reason for Changing Schedule:</h5>
+                <textarea cols="35" rows="5" ng-required="true" ng-model="vmDialog.record.reason_for_cs" md-placeholder="Enter atleast 10 words"></textarea>
+              </md-input-container>
+          </div>    
+
+          <div flex="100">
+              <md-input-container>
+                <h5>Client Approval(if necessary):</h5>
+                <input type="file" name="client_approval_file" ng-required="vmDialog.fileIsRequired" ng-model="vmDialog.record.client_approval_file"/>
+              </md-input-container>
+          </div>
+
+        </div>        
+
+      </form>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      
+      <span flex></span>
+      
+      <md-button class="" ng-click="vmDialog.cancelDialog();">
+        Cancel/Abandon
+      </md-button>      
+
+      <md-button class="md-raised md-primary" ng-disabled="scheduleRequestForm.$invalid"  ng-click="vmDialog.submitDialog(scheduleRequestForm.$valid);">
+        Submit Request
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

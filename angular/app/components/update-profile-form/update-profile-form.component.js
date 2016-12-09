@@ -8,6 +8,7 @@ class UpdateProfileFormController {
     }
 
     $onInit(){
+
         this.employee = {};
 
         this.firstLoad();
@@ -21,6 +22,7 @@ class UpdateProfileFormController {
                 this.employee.datepickerfinish = this.employee.datefinish ? new Date(this.employee.datefinish) : "";
             }.bind(this)
         );
+
     }
 }
 

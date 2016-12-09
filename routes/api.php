@@ -28,11 +28,19 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::group(['middleware' => ['api']], function () {
+
+	//Requests Route Group
+	Route::group(['prefix' => 'requests'], function(){
+		Route::post('schedule/list', 'ScheduleRequestsController@getList');
+		Route::post('schedule/add', 'ScheduleRequestsController@addRequest');
+	});
+
 	Route::group(['prefix' => 'clock'], function(){
 	    Route::get('in', 'TimeLogController@clockIn');
 	    Route::get('out', 'TimeLogController@clockOut');
 	    Route::get('status', 'TimeLogController@timeLogStatus');
 	});
+	
 	Route::group(['prefix' => 'break'], function(){
 	    Route::get('in', 'TimeLogController@breakIn');
 	    Route::get('out', 'TimeLogController@breakOut');

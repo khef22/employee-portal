@@ -9,6 +9,10 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 import {UpdateProfileFormComponent} from './app/components/update-profile-form/update-profile-form.component';
 
+
+//Inject Schedule Request Component
+import {ScheduleRequestsComponent} from './app/components/schedule-requests/schedule-requests.component';
+
 angular.module('app.components')
 	.component('appPurchaseRequests', AppPurchaseRequestsComponent)
 	.component('appSidenav', AppSidenavComponent)
@@ -19,5 +23,5 @@ angular.module('app.components')
 	.component('forgotPassword', ForgotPasswordComponent)
 	.component('loginForm', LoginFormComponent)
 	.component('registerForm', RegisterFormComponent)
+	.component('scheduleRequests', ScheduleRequestsComponent)
 	.component('updateProfileForm', UpdateProfileFormComponent);
-
