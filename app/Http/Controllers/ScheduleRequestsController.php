@@ -6,10 +6,18 @@ use JWTAuth;
 
 use Illuminate\Http\Request;
 
-use App\Models\ScheduleRequest;
+use Illuminate\Pagination\Paginator;
+
+use App\Models\ScheduleRequest as SR;
 
 class ScheduleRequestsController extends BaseController
 {
+    public $pageLimit = 15;
+
+    public $currentPage = 1;
+
+    public $orderBy;
+
     public function __construct()
     {
     	parent::__construct();
@@ -26,11 +34,17 @@ class ScheduleRequestsController extends BaseController
     **/
     public function getList( Request $request )
     {
-    	$data = $this->employee->scheduleRequests()
-    		->orderBy('date_filed', 'DESC')
-    		// ->limit($request->input('limit', 10))
-    		->paginate($request->input('limit', 10));
-    		// ->get();
+        $statuses = [
+            'all' => 'getAll',
+        ];
+
+        $this->pageLimit = $request->input('limit') ? $request->input('limit') : 15;
+
+        $this->orderBy = $request->input('order') ? $request->input('order') : 'date_filed';
+
+        $this->currentPage = $request->input('page') ? $request->input('page') : 1;
+
+        $data = isset($statuses[$request->input('type')]) ? $this->$statuses[$request->input('type')]() : $this->getAll();    	
 
     	return response()->json(compact('data'), 200);
     }
@@ -48,10 +62,28 @@ class ScheduleRequestsController extends BaseController
 
     	try {
 
-    		$newRecord = new App\Models\ScheduleRequest();
+    		$newRecord = new SR();
 
-    		// to be continued here tomorrow
+            $newRecord->emp_id = $this->employee->emp_id;
+            $newRecord->change_date_from = $request->input('change_date_from');
+            $newRecord->request_date_from = $request->input('request_date_from');
+            $newRecord->p_approver = $this->employee->supervisor_id;
+            // $newRecord->s_approver = $this->employee->supervisor_id;
+            $newRecord->approval_status = ($this->employee->id == $this->employee->supervisor_id) ? 1 : 0;
+            $newRecord->reason_for_changesched = $request->input('reason_for_changesched');
+            $newRecord->date_filed = date('Y-m-d H:i:s', time());
+            $newRecord->request_start_time = date('H:i:s', strtotime($request->input('start_hr_cs') . ':' . $request->input('start_min_cs') .' '. $request->input('start_am_cs')));
+            $newRecord->request_end_time = date('H:i:s', strtotime($request->input('end_hr_cs') . ':' . $request->input('end_min_cs') . ' ' . $request->input('end_am_cs')));
+            // $newRecord->date_approve = 
+            // $newRecord->timezone = 
+            // $newRecord->approved_by = 
+            // $newRecord->change_date_to = 
+            // $newRecord->request_date_to =             
 
+            if ( $newRecord->save() ) {
+                $returnData['success'] = true;
+                $returnData['id'] = $newRecord->id;
+            }
 
 			return response()->json(compact('returnData'));
 
@@ -93,5 +125,38 @@ class ScheduleRequestsController extends BaseController
 
     }
 
+    private function setDataListOrders()
+    {
+        if ( isset($this->orderBy) ) {
+            return SR::orderBy($this->orderBy, 'DESC');
+        }
+        
+        return SR::orderBy('date_filed', 'DESC');
+    }
+
+    private function setPaginateList( $obj )
+    {
+        $currentPage = $this->currentPage;
+
+        Paginator::currentPageResolver(function() use ($currentPage) {
+            return $currentPage;
+        });
+
+        return $obj->paginate($this->pageLimit);
+    }
+
+    private function getAll()
+    {        
+        return $this->setPaginateList($this->setDataListOrders());
+    }
+
+    private function getApprovedRequests()
+    {
+
+    }
+
+    private function getPendingRequests(){}
+
+    private function getDisapprovedRequests(){}
 
 }

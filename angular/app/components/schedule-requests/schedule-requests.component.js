@@ -2,7 +2,7 @@ class ScheduleRequestsController{
 
 	constructor( API, ToastService, $state, $mdDialog ) {
 		'ngInject';
-
+		
 		this.API = API;
 		this.ToastService = ToastService;
 		this.state = $state;
@@ -10,37 +10,43 @@ class ScheduleRequestsController{
 		this.ToastService = ToastService;
 	}
 
-	$onInit() {
+	$onInit() {		
 		
 		this.query = {
 		    order: 'date_filed',
 		    limit: 10,
-		    page: 1
+		    page: 1,
+		    type: this.filterType ? this.filterType : 'all'
 		};		
 
+		self = this;
+
 		this.fetchDataList();
+
 	}
 
-	fetchDataList(){
+	fetchDataList(){		
 
 		this.showLoader = true;
+
+		this.mainDataList = [];
 
 		this.API.all('/requests/schedule/list').post(this.query).then(function( response ){
 		
 			this.showLoader = false;
-			this.mainDataList = response.data;
+			this.mainDataList = response.data;			
 			
 		}.bind(this));
+
 	}
 
-	paginateDataList(){
+	paginateDataList( page, limit, order ){	
 
-		// console.info(this.mainDataList);
+		console.info(order);
 
-		// this.API.all(this.mainDataList.next_page_url).post(this.query).then(function( response ){
-		// 	this.mainDataList = response.data;
-		// });
+		self.query.page = page;
 
+		self.fetchDataList();
 	}
 
 

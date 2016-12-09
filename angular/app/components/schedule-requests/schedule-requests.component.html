@@ -28,7 +28,7 @@
                   <!-- exact table from live demo -->
                   <md-table-container>
                     <table md-table md-row-select multiple ng-model="selected" md-progress="scheduleRequestsCtrl.mainDataList.data">
-                      <thead md-head md-order="scheduleRequestsCtrl.query.order" md-on-reorder="">
+                      <thead md-head md-order="scheduleRequestsCtrl.query.order" md-on-reorder="scheduleRequestsCtrl.paginateDataList">
                         <tr md-row>
                           <th md-column md-order-by="id"><span>ID</span></th>
                           <th md-column md-order-by="change_date_from"><span>Date To Change From</span></th>
@@ -56,7 +56,7 @@
                     </table>
                   </md-table-container>
 
-                  <md-table-pagination md-limit="scheduleRequestsCtrl.query.limit" md-limit-options="[5, 10, 15]" md-page="scheduleRequestsCtrl.query.page" md-total="{{data.count}}" md-on-paginate="scheduleRequestsCtrl.paginateDataList()" md-page-select></md-table-pagination>                  
+                  <md-table-pagination md-limit="scheduleRequestsCtrl.query.limit" md-limit-options="[10, 25, 50]" md-page="scheduleRequestsCtrl.query.page" md-total="{{scheduleRequestsCtrl.mainDataList.total}}" md-on-paginate="scheduleRequestsCtrl.paginateDataList" md-page-select></md-table-pagination>                  
                   <!-- !Data List Table -->
               </div>
           </div>
