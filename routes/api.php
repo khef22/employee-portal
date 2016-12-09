@@ -37,4 +37,7 @@ Route::group(['middleware' => ['api']], function () {
 	    Route::get('in', 'TimeLogController@breakIn');
 	    Route::get('out', 'TimeLogController@breakOut');
 	});
+	Route::group(['prefix' => 'purchaserequest'], function(){
+	    Route::post('list/{status?}', 'PurchaseRequestController@purchaseRequestList');
+	});
 });
