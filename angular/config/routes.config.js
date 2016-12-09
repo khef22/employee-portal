@@ -59,6 +59,15 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
                     templateUrl: getView('purchase-requests')
                 }
             }
+        })  
+        .state('app.schedulerequests', {
+			data: {auth: true},
+            url: '/schedule-requests',
+            views: {
+                'main@': {
+                    templateUrl: getView('schedule-requests')
+                }
+            }
         })
         .state('app2.login', {
 			url: '/login',

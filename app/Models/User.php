@@ -31,4 +31,29 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Employee','user_id');
     }
+
+    public function empStation()
+    {
+        return $this->hasOne('App\Models\EmpStation','emp_user_id');
+    }
+
+    public function roleUsers()
+    {
+        return $this->hasMany('App\Models\RoleUser');
+    }
+
+    public function vwUserEmployee()
+    {
+        return $this->hasOne('App\Models\VWUserEmployee');
+    }
+
+    public function getFloorPlanAttribute()
+    {
+        return $this->empStation->fpStation;
+    }
+
+    public function getListFloorPlanAttribute()
+    {
+        return $this->empStation->fpStation->ListFloorPlan;
+    }
 }
