@@ -56,4 +56,30 @@ class User extends Authenticatable
     {
         return $this->empStation->fpStation->ListFloorPlan;
     }
+
+    public function scopePosition($query)
+    {
+        return $this->empPositionHistories()->orderBy('id', 'desc')->first();
+    }
+
+    public function empPositionHistory()
+    {
+        return $this->hasOne('App\Models\EmpPositionHist', 'emp_id');
+    }
+
+    public function empPositionHistories()
+    {
+        return $this->hasMany('App\Models\EmpPositionHist', 'emp_id');
+    }
+
+    public function scopeSupervisors($query)
+    {
+        return $query->whereHas('empPositionHistory', function($q){
+                $q->where('sup_flag', 1)
+                  ->where('status', 1);
+            })
+            ->whereHas('employee', function($q){
+                $q->whereYear('datefinish', "<", 1000);
+            });
+    }
 }

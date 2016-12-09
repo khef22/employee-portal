@@ -10,19 +10,46 @@ class UpdateProfileFormController {
     $onInit(){
 
         this.employee = {};
+        this.fieldEditable = false;
+        this.loaded = false;
+        this.options = {
+            'supervisors' : [],
+            'employee_statuses' : []
+        };
 
-        this.firstLoad();
+        this.loadPage();
     }
 
-    firstLoad() {
-        this.API.all('profile').get('').then(
+    loadField() {
+        this.API.all('profile/field').get('').then(
             function(response) {
                 this.employee = response;
-                this.employee.datepickerstart = new Date(this.employee.datestart);
-                this.employee.datepickerfinish = this.employee.datefinish ? new Date(this.employee.datefinish) : "";
+                this.employee.datestart = new Date(this.employee.datepickerstart);
+                if(this.employee.datepickerfinish)
+                {
+                    this.employee.datefinish = new Date(this.employee.datepickerfinish);
+                }
+                this.loaded = true;
             }.bind(this)
         );
 
+    }
+
+    loadPage() {
+        this.API.all('profile').get('').then(
+            function(response) {
+                this.options = response;
+                this.loadField();
+            }.bind(this)
+        );
+    }
+
+    toggleEdit() {
+        this.fieldEditable = !this.fieldEditable;
+    }
+
+    saveProfile() {
+        this.API.all('profile/save').post(this.employee);
     }
 }
 

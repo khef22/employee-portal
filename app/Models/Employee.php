@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
+    public $timestamps = false;
     protected $table = 'employees';
-
-    protected $appends = array('EmploymentStatus');
+    protected $fillable = [
+    	'nickname', 'hrtitle', 'philhealth', 'pagibig', 'tin', 'sss',
+    	'supervisor_id', 'issalesrep', 'isrecruiter', 'empstatus', 'telephone01',
+    	'datestart', 'datefinish'
+    ];
 
     public function timeLogs()
     {
@@ -22,12 +26,12 @@ class Employee extends Model
 
     public function supervisorUser()
     {
-    	return $this->belongsTo('App\Models\User', 'supervisor_id');
+    	return $this->belongsTo('App\Models\Employee', 'supervisor_id');
     }
 
     public function getSupervisorAttribute()
     {
-    	return $this->supervisorUser->employee;
+    	return $this->supervisorUser;
     }
 
     public function getEmploymentStatusAttribute()

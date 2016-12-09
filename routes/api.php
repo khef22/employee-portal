@@ -51,7 +51,9 @@ Route::group(['middleware' => ['api']], function () {
 	});
 
 	Route::group(['prefix' => 'profile'], function() {
-		Route::get('/', 'EmployeeController@profile');
+		Route::get('/', 'EmployeeController@profilePage');
+		Route::get('/field', 'EmployeeController@profileField');
+		Route::post('/save', 'EmployeeController@profileSave');
 	});
 	
 });

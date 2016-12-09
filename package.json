@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "prod": "gulp --production",
-    "dev": "gulp watch"
+    "dev": "rm -rf public/build && gulp watch"
   },
   "devDependencies": {
     "babel-core": "^6.16.0",
