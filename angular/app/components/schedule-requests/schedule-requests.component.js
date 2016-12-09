@@ -11,16 +11,16 @@ class ScheduleRequestsController{
 	}
 
 	$onInit() {		
-		
+
+		self = this;
+
 		this.query = {
 		    order: 'date_filed',
 		    limit: 10,
 		    page: 1,
 		    type: this.filterType ? this.filterType : 'all'
 		};		
-
-		self = this;
-
+		
 		this.fetchDataList();
 
 	}
@@ -28,8 +28,9 @@ class ScheduleRequestsController{
 	fetchDataList(){		
 
 		this.showLoader = true;
+		
 
-		this.mainDataList = [];
+		// this.mainDataList = [];
 
 		this.API.all('/requests/schedule/list').post(this.query).then(function( response ){
 		
@@ -40,9 +41,9 @@ class ScheduleRequestsController{
 
 	}
 
-	paginateDataList( page, limit, order ){	
+	paginateDataList( page, limit ){	
 
-		console.info(order);
+		// console.info(order);
 
 		self.query.page = page;
 
