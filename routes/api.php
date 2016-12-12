@@ -40,6 +40,8 @@ Route::group(['middleware' => ['api']], function () {
 	    Route::get('out', 'TimeLogController@clockOut');
 	    Route::get('status', 'TimeLogController@timeLogStatus');
 	});
+
+	Route::post('announcements/list', 'AnnouncementsController@getList');		
 	
 	Route::group(['prefix' => 'break'], function(){
 	    Route::get('in', 'TimeLogController@breakIn');

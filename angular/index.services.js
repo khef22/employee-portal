@@ -3,7 +3,7 @@ import {DialogService} from './services/dialog.service';
 import {ToastService} from './services/toast.service';
 
 //Auth Interceptor Service
-import {AuthInterceptorService} from './services/authInterceptor.service';
+// import {AuthInterceptorService} from './services/authInterceptor.service';
 
 angular.module('app.services')
 	.service('API', APIService)

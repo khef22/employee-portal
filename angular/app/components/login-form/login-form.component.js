@@ -13,7 +13,7 @@ class LoginFormController {
         this.password = '';
 
 		if(this.$auth.isAuthenticated()){
-			this.$state.go('app.main')
+			this.$state.go('app.dashboard')
 		}
     }
 
@@ -27,7 +27,7 @@ class LoginFormController {
 			.then((response) => {
 				this.$auth.setToken(response.data);
 				this.getUserInfo(response);
-				this.$state.go('app.main');
+				this.$state.go('app.dashboard');
 				this.ToastService.show('Logged in successfully.');
 			})
 			.catch(this.failedLogin.bind(this));
@@ -39,7 +39,7 @@ class LoginFormController {
 			.then((response) => {
 				this.$auth.setToken(response.data);
 				this.getUserInfo(response);
-				this.$state.go('app.main');
+				this.$state.go('app.dashboard');
 				this.ToastService.show('Logged in successfully.');
 			})
 			.catch(this.failedLogin.bind(this));

@@ -1,39 +1,35 @@
 export class AuthInterceptorService {
-	construct ( $q, $rootScope, $sessionStorage, $auth, $state, ToastService ) {
 
-		this.$q = $q;		
-		this.$rootScope = $rootScope;
+	construct ( $q, $sessionStorage, $auth, $state, ToastService ) {
+
+		this.$q = $q;				
 		this.$sessionStorage = $sessionStorage;
 		this.$auth = $auth;
 		this.$state = $state;
+		this.ToastService = ToastService;
 
 	}
 
 	// Override responseError			
 	responseError( response ){
 
-		if ( (response.status === 401 || response.status === 403 || response.status == 500) && !this.$auth.isAuthenticated() ) {   
+		if ( (response.status === 401 || response.status === 403 || response.status == 500) && !this.$auth.isAuthenticated() ) {
+			
+			this.$auth.logout();
+			this.$state.go('app2.login');
+			this.ToastService.show('You are now logged out.');
 
-          	this.$auth.logout();
-            this.$state.go('app2.login');
-            this.ToastService.show('You are now logged out.');
+			this.$auth.unlink('google');
+		}
 
-            this.$auth.unlink('google');
-
-         	if ( $rootScope.$state.current ) { 
-	            this.$sessionStorage.refresh_redirect_state = JSON.stringify(this.$rootScope.$state.current);
-	        } 
-
-        }
-
-        return this.$q.reject(response);
+		return this.$q.reject(response);
 	}
 
-	static AuthInterceptorFactory( $q, $rootScope, $sessionStorage, $auth, $state, ToastService ){
-		return new AuthInterceptorService( $q, $rootScope, $sessionStorage, $auth, $state, ToastService );
+	static AuthInterceptorFactory( $q, $sessionStorage, $auth, $state, ToastService ){
+		return new AuthInterceptorService( $q, $sessionStorage, $auth, $state, ToastService );
 	}
 
 }
 
 //Auth Interceptor Service Inject Dependencies
-AuthInterceptorService.AuthInterceptorFactory.$inject = [ '$q', '$rootScope', '$sessionStorage', '$auth', '$state', 'ToastService' ];
+AuthInterceptorService.AuthInterceptorFactory.$inject = [ '$q', '$sessionStorage', '$auth', '$state', 'ToastService' ];

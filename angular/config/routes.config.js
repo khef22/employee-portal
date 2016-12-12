@@ -1,11 +1,11 @@
-export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
+export function RoutesConfig($stateProvider, $urlRouterProvider) {
 	'ngInject';
 
 	let getView = (viewName) => {
 		return `./views/app/pages/${viewName}/${viewName}.page.html`;
 	};
 
-	$urlRouterProvider.otherwise('/');
+	$urlRouterProvider.otherwise('/dashboard');
 	
 	/* $locationProvider.html5Mode({
 		enabled: true,
@@ -42,12 +42,12 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 				main: {}
 			}
 		})
-		.state('app.main', {
+		.state('app.dashboard', {
 			data: {auth: true},
-            url: '/',
+            url: '/dashboard',
             views: {
                 'main@': {
-                    templateUrl: getView('main')
+                    templateUrl: getView('dashboard')
                 }
             }
         })

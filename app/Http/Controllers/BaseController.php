@@ -16,4 +16,6 @@ class BaseController extends Controller
 		$this->user = JWTAuth::parseToken()->toUser();
 		$this->employee = JWTAuth::parseToken()->toUser()->employee()->first();
 	}
+
 }
+

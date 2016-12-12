@@ -7,7 +7,7 @@ class ScheduleRequestsController{
 		this.ToastService = ToastService;
 		this.state = $state;
 		this.$mdDialog = $mdDialog;
-		this.ToastService = ToastService;
+
 	}
 
 	$onInit() {		
@@ -27,8 +27,8 @@ class ScheduleRequestsController{
 
 	fetchDataList(){		
 
+
 		this.showLoader = true;
-		
 
 		// this.mainDataList = [];
 
@@ -41,10 +41,7 @@ class ScheduleRequestsController{
 
 	}
 
-	paginateDataList( page, limit ){	
-
-		// console.info(order);
-
+	paginateDataList( page ){	
 		self.query.page = page;
 
 		self.fetchDataList();
@@ -54,22 +51,22 @@ class ScheduleRequestsController{
 	logRequest(ev){
 
 		this.$mdDialog.show({
-	      
-	      	controller: ScheduleRequestsDialogController,
 
-	      	controllerAs : 'vmDialog',	      
+			controller: ScheduleRequestsDialogController,
+			
+			controllerAs : 'vmDialog',	      
 
-	      	templateUrl: './views/app/components/schedule-requests/form-dialog.html',
-	      	
-	      	parent: angular.element(document.body),
-	      	
-	      	targetEvent: ev,
-	      	
-	      	clickOutsideToClose:false,	
+			templateUrl: './views/app/components/schedule-requests/form-dialog.html',
+			
+			parent: angular.element(document.body),
+			
+			targetEvent: ev,
+			
+			clickOutsideToClose:false,	
 
-	      	fullscreen : true,      	
+			fullscreen : true,      	
 
-	    });
+		});
 
 	}
 }
@@ -194,7 +191,7 @@ class ScheduleRequestsDialogController{
 
 
 	$onInit(){
-		console.info("Schedule Request Dialog is loaded.");
+		// console.info("Schedule Request Dialog is loaded.");
 	}
 
 	hideDialog(){
@@ -209,7 +206,7 @@ class ScheduleRequestsDialogController{
 
 		this.API.all('/requests/schedule/add').post(this.record).then(function( response ){
 			if ( response.status ) {
-    			this.ToastService.show('New Log Request successfully submitted.');
+				this.ToastService.show('New Log Request successfully submitted.');
 			}
 		}.bind(this),function( xhr ){
 			this.ToastService.error(xhr.statusText);
