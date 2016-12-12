@@ -9,12 +9,12 @@ use Illuminate\Http\Request;
 class BaseController extends Controller
 {
 	protected $employee;
-	protected $user;	
+	protected $user;
 
-	public function __construct( $modelName = null )
+	public function __construct()
 	{
 		$this->user = JWTAuth::parseToken()->toUser();
-		$this->employee = JWTAuth::parseToken()->toUser()->employee()->first();		
+		$this->employee = JWTAuth::parseToken()->toUser()->employee()->first();
 	}
 
 }
