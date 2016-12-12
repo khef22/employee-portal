@@ -47,7 +47,9 @@ class PurchaseRequestController extends BaseController
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
         });
-        return PR::paginate($this->limit);
+
+        return PR::with('requestor')->orderBy('id','desc')->paginate($this->limit);
+
     	return false;
     }
 
