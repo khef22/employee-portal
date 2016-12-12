@@ -13,6 +13,9 @@ import {UpdateProfileFormComponent} from './app/components/update-profile-form/u
 //Inject Schedule Request Component
 import {ScheduleRequestsComponent} from './app/components/schedule-requests/schedule-requests.component';
 
+//Dashboard/Announcements Component
+import {DashboardComponent} from './app/components/dashboard/dashboard.component';
+
 angular.module('app.components')
 	.component('appPurchaseRequests', AppPurchaseRequestsComponent)
 	.component('appSidenav', AppSidenavComponent)
@@ -24,4 +27,5 @@ angular.module('app.components')
 	.component('loginForm', LoginFormComponent)
 	.component('registerForm', RegisterFormComponent)
 	.component('scheduleRequests', ScheduleRequestsComponent)
+	.component('dashboard', DashboardComponent)
 	.component('updateProfileForm', UpdateProfileFormComponent);
