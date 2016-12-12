@@ -57,11 +57,6 @@ class User extends Authenticatable
         return $this->empStation->fpStation->ListFloorPlan;
     }
 
-    public function scopePosition($query)
-    {
-        return $this->empPositionHistories()->orderBy('id', 'desc')->first();
-    }
-
     public function empPositionHistory()
     {
         return $this->hasOne('App\Models\EmpPositionHist', 'emp_id');
@@ -81,5 +76,20 @@ class User extends Authenticatable
             ->whereHas('employee', function($q){
                 $q->whereYear('datefinish', "<", 1000);
             });
+    }
+
+    public function scopeCurrentPosition()
+    {
+        return $this->empPositionHistories()->orderBy('id', 'desc')->first();
+    }
+
+    public function scopePosition()
+    {
+        return $this->currentPosition()->employeePosition;
+    }
+
+    public function scopeDepartment()
+    {
+        return $this->position()->department;
     }
 }

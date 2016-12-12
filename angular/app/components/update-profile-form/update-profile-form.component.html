@@ -129,8 +129,8 @@
           <label>Manager</label>
           <md-select ng-model="vm.employee.manager" ng-disabled="!vm.fieldEditable">
             <md-option><em>None</em></md-option>
-            <md-option ng-repeat="supervisor in vm.options.supervisors" ng-value="supervisor.employee.id">
-              {{supervisor.employee.firstname}} {{supervisor.employee.lastname}}
+            <md-option ng-repeat="supervisor in vm.options.supervisors" ng-value="supervisor.id">
+              {{supervisor.firstname}} {{supervisor.lastname}}
             </md-option>
           </md-select>
         </md-input-container>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Employee;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -31,8 +32,8 @@ class EmployeeController extends BaseController
         $employee['datepickerfinish'] = !$datestart->gt($datefinish) ? $datefinish->toDateTimeString() : false;
 
         $employee['email'] = $this->user->email;
-    	$employee['department'] = $this->user->vwUserEmployee->department;
-        $employee['position'] = $this->user->vwUserEmployee->title;
+    	$employee['department'] = $this->user->department()->dept_name;
+        $employee['position'] = $this->user->position()->title;
         $employee['client'] = $this->user->vwUserEmployee->client_names;
         $employee['seatAssign'] = $this->user->listFloorPlan->floorplan_name ." R ". $this->user->floorPlan->row_number."-". $this->user->floorPlan->seat_number;
 
@@ -43,7 +44,7 @@ class EmployeeController extends BaseController
     {
     	$options = [];
 
-        $options['supervisors'] = User::with('employee')->supervisors()->get();
+        $options['supervisors'] = Employee::supervisors()->get();
     	$options['employee_statuses'] = ['Regular', 'Probationary', 'Contractual', 'Finished Contract', 'Resigned', 'Temporary', 'Terminated', 'ON THE JOB TRAINING', 'Trainee'];
 
         return response()->json($options);
@@ -81,7 +82,7 @@ class EmployeeController extends BaseController
         $this->employee->save();
 
         $this->user->email = $request['email'];
-        $empPos = $this->user->position()->employeePosition;
+        $empPos = $this->user->position();
         $empPos->title = $request['position'];
 
         $this->user->save();
