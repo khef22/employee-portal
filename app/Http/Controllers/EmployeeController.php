@@ -34,7 +34,7 @@ class EmployeeController extends BaseController
         $employee['email'] = $this->user->email;
     	$employee['department'] = $this->user->department()->dept_name;
         $employee['position'] = $this->user->position()->title;
-        $employee['client'] = $this->user->vwUserEmployee->client_names;
+        // $employee['client'] = $this->user->client()->client_name;
         $employee['seatAssign'] = $this->user->listFloorPlan->floorplan_name ." R ". $this->user->floorPlan->row_number."-". $this->user->floorPlan->seat_number;
 
     	return response()->json($employee);

@@ -15,4 +15,9 @@ class Position extends Model
     {
     	return $this->belongsTo('App\Models\Department', 'department_id', 'department_id');
     }
+
+    public function contract()
+    {
+    	return $this->belongsTo('App\Models\Contract', 'contacts_id');
+    }
 }

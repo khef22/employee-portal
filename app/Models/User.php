@@ -92,4 +92,14 @@ class User extends Authenticatable
     {
         return $this->position()->department;
     }
+
+    public function scopeContract()
+    {
+        return $this->position()->contract;
+    }
+
+    public function scopeGetClient()
+    {
+        return $this->contract()->client;
+    }
 }
