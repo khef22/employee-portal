@@ -15,11 +15,13 @@ class ScheduleRequestsController{
 		self = this;
 
 		this.query = {
-		    order: 'date_filed',
-		    limit: 10,
-		    page: 1,
-		    type: this.filterType ? this.filterType : 'all'
+			order: 'date_filed',
+			limit: 10,
+			page: 1,
+			type: this.filterType ? this.filterType : 'all'
 		};		
+
+		this.selectedItems = [];
 		
 		this.fetchDataList();
 
@@ -27,10 +29,7 @@ class ScheduleRequestsController{
 
 	fetchDataList(){		
 
-
-		this.showLoader = true;
-
-		// this.mainDataList = [];
+		this.showLoader = true;		
 
 		this.API.all('/requests/schedule/list').post(this.query).then(function( response ){
 		
@@ -47,10 +46,26 @@ class ScheduleRequestsController{
 		self.fetchDataList();
 	}
 
+	triggerFilter( index ){	
 
-	logRequest(ev){
+		this.query.filterBy = index;
+
+		this.fetchDataList();
+	}
+
+	logRequest(ev, isEditMode, data){	
 
 		this.$mdDialog.show({
+
+			resolve : {
+				isEditMode : function(){
+					return isEditMode;
+				},
+
+				getData : function(){
+					return data || {};
+				}
+			},			
 
 			controller: ScheduleRequestsDialogController,
 			
@@ -73,8 +88,12 @@ class ScheduleRequestsController{
 
 class ScheduleRequestsDialogController{
 
-	constructor( $scope, $mdDialog, ToastService, API ){
+	constructor( getData, isEditMode, $scope, $mdDialog, ToastService, API ){
 		'ngInject';
+
+		this.isEditMode = isEditMode;
+
+		this.selectedData = getData;
 
 		this.$scope = $scope;
 
@@ -183,6 +202,8 @@ class ScheduleRequestsDialogController{
 
 		this.minDate = new Date();	
 
+		this.dialogTitle = isEditMode ? 'Request Details' : 'Log New Request';
+
 	}
 
 	onlyZylunDays( date ){		
@@ -205,7 +226,8 @@ class ScheduleRequestsDialogController{
 	submitDialog(){		
 
 		this.API.all('/requests/schedule/add').post(this.record).then(function( response ){
-			if ( response.status ) {
+			if ( response.succcess ) {
+				this.$mdDialog.hide();
 				this.ToastService.show('New Log Request successfully submitted.');
 			}
 		}.bind(this),function( xhr ){

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Pagination\Paginator;
 
-use App\Models\Announcements as AN;
+use App\Models\Announcement as AN;
 
 class AnnouncementsController extends BaseController
 {
@@ -40,11 +40,8 @@ class AnnouncementsController extends BaseController
 
  	private function setDataListOrders()
     {
-        if ( isset($this->orderBy) ) {
-            return AN::orderBy($this->orderBy, 'DESC');
-        }
+        return AN::with(['employee' => function($q){ $q->orderBy('id', 'DESC');}])->orderBy('created_at','DESC');        
         
-        return AN::orderBy('created_at', 'DESC');
     }
 
     private function setPaginateList( $obj )

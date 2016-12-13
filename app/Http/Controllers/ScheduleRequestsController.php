@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use JWTAuth;
 
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Pagination\Paginator;
@@ -65,30 +67,25 @@ class ScheduleRequestsController extends BaseController
     		$newRecord = new SR();
 
             $newRecord->emp_id = $this->employee->emp_id;
-            $newRecord->change_date_from = $request->input('change_date_from');
-            $newRecord->request_date_from = $request->input('request_date_from');
+            $newRecord->change_date_from = Carbon::parse($request->input('change_date_from'));
+            $newRecord->request_date_from = Carbon::parse($request->input('request_date_from'));
             $newRecord->p_approver = $this->employee->supervisor_id;
-            // $newRecord->s_approver = $this->employee->supervisor_id;
             $newRecord->approval_status = ($this->employee->id == $this->employee->supervisor_id) ? 1 : 0;
             $newRecord->reason_for_changesched = $request->input('reason_for_changesched');
-            $newRecord->date_filed = date('Y-m-d H:i:s', time());
-            $newRecord->request_start_time = date('H:i:s', strtotime($request->input('start_hr_cs') . ':' . $request->input('start_min_cs') .' '. $request->input('start_am_cs')));
-            $newRecord->request_end_time = date('H:i:s', strtotime($request->input('end_hr_cs') . ':' . $request->input('end_min_cs') . ' ' . $request->input('end_am_cs')));
-            // $newRecord->date_approve = 
-            // $newRecord->timezone = 
-            // $newRecord->approved_by = 
-            // $newRecord->change_date_to = 
-            // $newRecord->request_date_to =             
+            $newRecord->date_filed = Carbon::now();
+            $newRecord->request_start_time = Carbon::parse($request->input('start_hr_cs') . ':' . $request->input('start_min_cs') .' '. $request->input('start_am_cs'));
+            $newRecord->request_end_time = Carbon::parse($request->input('end_hr_cs') . ':' . $request->input('end_min_cs') .' '. $request->input('end_am_cs'));
+            $newRecord->timezone = $request->input('timezone');
 
             if ( $newRecord->save() ) {
                 $returnData['success'] = true;
                 $returnData['id'] = $newRecord->id;
             }
 
-			return response()->json(compact('returnData'));
+			return response()->json($returnData);
 
     	} catch ( Exception $e ) {
-    		return response()->json(compact('returnData'), 500);
+    		return response()->json($returnData, 500);
     	}
     	
     }

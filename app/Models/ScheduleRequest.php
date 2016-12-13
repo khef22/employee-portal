@@ -11,6 +11,8 @@ class ScheduleRequest extends Model
 
     protected $guarded = ['id', 'emp_id'];
 
+    public $timestamps = false;    
+
     protected $fillable = [
     	'change_date_from', 
     	'request_date_from', 

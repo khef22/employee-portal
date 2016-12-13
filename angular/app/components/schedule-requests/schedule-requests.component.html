@@ -2,6 +2,10 @@
 
   <md-content>
 
+    <!-- Module Progress Loader -->
+    <ajax-loader show-loader="scheduleRequestsCtrl.showLoader"></ajax-loader>
+    <!-- !Module Progress Loader -->
+
     <!-- Module Tab -->
     <md-tabs md-dynamic-height md-border-bottom>
 
@@ -9,16 +13,32 @@
       <md-tab label="List of Schedule Requests" ng-click="scheduleRequestsCtrl.fetchDataList()">
         <md-content class="md-padding">
 
-          <!-- Module Progress Loader -->
-          <ajax-loader show-loader="scheduleRequestsCtrl.showLoader"></ajax-loader>
-          <!-- !Module Progress Loader -->
 
           <section layout="row" layout-sm="column" layout-align="left left" layout-wrap>
-            <md-button class="md-raised md-primary" ng-click="scheduleRequestsCtrl.logRequest($event);">Log New Request</md-button>     
-            <md-button class="md-primary md-raised demo-menu-open-button"
-                       ng-click="scheduleRequestsCtrl.showFilters($event)">
-              Filters
-            </md-button>
+
+            <md-button class="md-raised md-primary" ng-click="scheduleRequestsCtrl.logRequest($event, false, false);">Log New Request</md-button>  
+
+            <md-menu md-offset="0 -7">
+              <md-button aria-label="Filters" class="md-primary md-raised" ng-click="$mdOpenMenu($event)">
+                Filters
+              </md-button>
+              <md-menu-content width="4">
+                <md-menu-item ng-repeat="item in ['Processed', 'Approved', 'Pending']">
+                  <md-button ng-click="scheduleRequestsCtrl.triggerFilter($index)"> <span md-menu-align-target>{{item}}</span> </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+
+            <md-menu md-offset="0 -7">
+              <md-button aria-label="Bulk Actions" class="md-primary md-raised" ng-click="$mdOpenMenu($event)">
+                Bulk Actions
+              </md-button>
+              <md-menu-content width="4">
+                <md-menu-item ng-repeat="item in ['Remove Selected', 'Edit Selected']">
+                  <md-button ng-click="scheduleRequestsCtrl.triggerActions($index)"> <span md-menu-align-target>{{item}}</span> </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
          
           </section>
 
@@ -27,15 +47,13 @@
                   <!-- Data List Table -->
                   <!-- exact table from live demo -->
                   <md-table-container>
-                    <table md-table md-row-select multiple ng-model="selected" md-progress="scheduleRequestsCtrl.mainDataList.data">
+                    <table md-table md-row-select multiple ng-model="scheduleRequestsCtrl.selectedItems" md-progress="scheduleRequestsCtrl.mainDataList.data">
                       <thead md-head md-order="scheduleRequestsCtrl.query.order" md-on-reorder="scheduleRequestsCtrl.paginateDataList">
                         <tr md-row>
                           <th md-column md-order-by="id"><span>ID</span></th>
-                          <th md-column md-order-by="change_date_from"><span>Date To Change From</span></th>
-                          <th md-column md-order-by="change_date_to">Date To Change To</th>
-                          <th md-column md-order-by="request_date_from">Date of Request(From)</th>
-                          <th md-column md-order-by="request_date_to">Date of Request(To)</th>
-                          <th md-column md-order-by="request_date_to">Shift</th>
+                          <th md-column md-order-by="change_date_from"><span>Date to Change</span></th>                          
+                          <th md-column md-order-by="request_date_from">Date of Request</th>                          
+                          <th md-column md-order-by="shift">Shift</th>
                           <th md-column md-order-by="approval_status">Status</th>
                           <th md-column md-order-by="date_filed">Date Filed</th>
                           <th md-column>Actions</th>
@@ -44,13 +62,20 @@
                       <tbody md-body>
                         <tr md-row md-select="data" md-select-id="id" md-auto-select ng-repeat="data in scheduleRequestsCtrl.mainDataList.data">
                           <td md-cell>{{data.id}}</td>
-                          <td md-cell>{{data.change_date_from | date:'yyyy-MM-dd'}}</td>
-                          <td md-cell>{{data.change_date_to | date:'yyyy-MM-dd'}}</td>
-                          <td md-cell>{{data.request_date_from | date:'yyyy-MM-dd'}}</td>
-                          <td md-cell>{{data.request_date_to | date:'yyyy-MM-dd'}}</td>
-                          <td md-cell>{{data.request_start_time | date:'HH:mm a'}} - {{ data.request_end_time | date:'HH:mm a'}}</td>
-                          <td md-cell>{{data.approval_status}}</td>
-                          <td md-cell>{{data.date_filed | date:'mediumDate'}}</td>
+                          <td md-cell>{{data.change_date_from | date : 'medium'}}</td>                          
+                          <td md-cell>{{data.request_date_from | date : 'yyyy-MM-dd'}}</td>                          
+                          <td md-cell>{{data.request_start_time | date : 'HH:mm a'}} - {{ data.request_end_time | date : 'HH:mm a'}}</td>
+                          <td md-cell>
+                            <md-icon md-font-set="material-icons">  {{ data.approval_status == 1 ? 'thumb_up' : 'sync' }} </md-icon>
+                            {{ data.approval_status == 1 ? 'Approved' : 'Pending' }}
+                          </td>
+                          <td md-cell>{{data.date_filed | date:'mediumDate'}}</td>            
+                          <td md-cell>
+                            <md-button class="md-icon-button" ng-click="scheduleRequestsCtrl.logRequest($event, true, data);"> 
+                                <md-icon md-font-set="material-icons"> search </md-icon>
+                                View
+                            </md-button>
+                          </td>
                         </tr>
                       </tbody>
                     </table>

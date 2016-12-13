@@ -14,7 +14,7 @@ class DashboardController{
 			limit: 10,
 			page: 1,
 			type: 'all'
-		};		
+		};			
 
 		this.getAnnouncements();
 	}
@@ -27,10 +27,16 @@ class DashboardController{
 		
 			this.showLoader = false;
 			this.showLoader = false;
-			this.mainDataList = response.data;			
+			this.mainDataList = response.data;
+			// console.log(this.mainDataList);
 			
 		}.bind(this));
 	}
+
+	paginateDataList( page ){
+		// console.log(this);
+	}
+
 	
 }
 

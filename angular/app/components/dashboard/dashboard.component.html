@@ -39,8 +39,8 @@
                       <tbody md-body>
                         <tr md-row md-select="data" md-select-id="id" md-auto-select ng-repeat="data in dashboardCtrl.mainDataList.data">
                           <td md-cell>{{data.subject}}</td>
-                          <td md-cell>{{data.description}}</td>
-                          <td md-cell>{{data.created_by}}</td>
+                          <td md-cell>{{data.description | trustHtml}}</td>
+                          <td md-cell>{{data.employee.firstname | capitalize}} {{ data.employee.lastname | capitalize}}</td>
                           <td md-cell>{{data.created_at | date:'yyyy-MM-dd hh:mm a'}}</td>                        
                         </tr>
                       </tbody>
