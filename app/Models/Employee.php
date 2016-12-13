@@ -56,7 +56,7 @@ class Employee extends Model
         return $this->belongsTo('App\Models\User','user_id');
     }
 
-    public function scopeSupervisors($query)
+    public function scopeGetSupervisors($query)
     {
         return $query->whereHas('user.empPositionHistory', function($q){
                 $q->where('sup_flag', 1)

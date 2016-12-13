@@ -42,11 +42,6 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\RoleUser');
     }
 
-    public function vwUserEmployee()
-    {
-        return $this->hasOne('App\Models\VWUserEmployee');
-    }
-
     public function getFloorPlanAttribute()
     {
         return $this->empStation->fpStation;
@@ -67,7 +62,37 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\EmpPositionHist', 'emp_id');
     }
 
-    public function scopeSupervisors($query)
+    public function getCurrentPositionHistoryAttribute()
+    {
+        return $this->getPositionHistories()->first();
+    }
+
+    public function getCurrentPositionAttribute()
+    {
+        return $this->currentPositionHistory->employeePosition;
+    }
+
+    public function getCurrentDepartmentAttribute()
+    {
+        return $this->currentPosition->department;
+    }
+
+    public function getCurrentContractAttribute()
+    {
+        return $this->currentPosition->contract;
+    }
+
+    public function getCurrentClientAttribute()
+    {
+        return $this->currentContract->client;
+    }
+
+    public function scopeGetPositionHistories()
+    {
+        return $this->empPositionHistories()->orderBy('id', 'desc');
+    }
+
+    public function scopeGetSupervisors($query)
     {
         return $query->whereHas('empPositionHistory', function($q){
                 $q->where('sup_flag', 1)
@@ -76,30 +101,5 @@ class User extends Authenticatable
             ->whereHas('employee', function($q){
                 $q->whereYear('datefinish', "<", 1000);
             });
-    }
-
-    public function scopeCurrentPosition()
-    {
-        return $this->empPositionHistories()->orderBy('id', 'desc')->first();
-    }
-
-    public function scopePosition()
-    {
-        return $this->currentPosition()->employeePosition;
-    }
-
-    public function scopeDepartment()
-    {
-        return $this->position()->department;
-    }
-
-    public function scopeContract()
-    {
-        return $this->position()->contract;
-    }
-
-    public function scopeGetClient()
-    {
-        return $this->contract()->client;
     }
 }

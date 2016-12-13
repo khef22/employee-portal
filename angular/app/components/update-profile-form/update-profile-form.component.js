@@ -1,10 +1,11 @@
 class UpdateProfileFormController {
-    constructor(API, ToastService, $state) {
+    constructor(API, ToastService, $state, $mdToast) {
         'ngInject';
 
         this.API = API;
         this.$state = $state;
         this.ToastService = ToastService;
+        this.$mdToast = $mdToast;
     }
 
     $onInit(){
@@ -21,7 +22,7 @@ class UpdateProfileFormController {
     }
 
     loadField() {
-        this.API.all('profile/field').get('').then(
+        this.API.one('profile', 'field').get().then(
             function(response) {
                 this.employee = response;
                 this.employee.datestart = new Date(this.employee.datepickerstart);
@@ -36,12 +37,18 @@ class UpdateProfileFormController {
     }
 
     loadPage() {
-        this.API.all('profile').get('').then(
+        this.API.one('profile').get().then(
             function(response) {
                 this.options = response;
+                this.employee.datestart = new Date(this.employee.datepickerstart);
+                if(this.employee.datepickerfinish)
+                {
+                    this.employee.datefinish = new Date(this.employee.datepickerfinish);
+                }
+                this.loaded = true;
                 this.loadField();
             }.bind(this)
-        );
+        )
     }
 
     toggleEdit() {
@@ -49,7 +56,10 @@ class UpdateProfileFormController {
     }
 
     saveProfile() {
-        this.API.all('profile/save').post(this.employee);
+        this.API.all('profile/save').post(this.employee).then(function(){
+            this.fieldEditable = false;
+            this.$mdToast.show(this.$mdToast.simple().textContent('Saved!'));
+        }.bind(this));
     }
 }
 

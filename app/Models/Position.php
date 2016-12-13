@@ -18,6 +18,6 @@ class Position extends Model
 
     public function contract()
     {
-    	return $this->belongsTo('App\Models\Contract', 'contacts_id');
+    	return $this->belongsTo('App\Models\Contract', 'contracts_id');
     }
 }
