@@ -7,7 +7,7 @@ import {ResetPasswordComponent} from './app/components/reset-password/reset-pass
 import {ForgotPasswordComponent} from './app/components/forgot-password/forgot-password.component';
 import {LoginFormComponent} from './app/components/login-form/login-form.component';
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
-import {UpdateProfileFormComponent} from './app/components/update-profile-form/update-profile-form.component';
+import {ProfileComponent} from './app/components/profile/profile.component';
 
 
 //Inject Schedule Request Component
@@ -28,4 +28,4 @@ angular.module('app.components')
 	.component('registerForm', RegisterFormComponent)
 	.component('scheduleRequests', ScheduleRequestsComponent)
 	.component('dashboard', DashboardComponent)
-	.component('updateProfileForm', UpdateProfileFormComponent);
+	.component('profile', ProfileComponent);

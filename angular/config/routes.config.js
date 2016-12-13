@@ -101,11 +101,11 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        .state('app.update_profile', {
-            url: '/profile/update',
+        .state('app.profile', {
+            url: '/profile',
             views: {
                 'main@': {
-                    templateUrl: getView('update-profile-form')
+                    templateUrl: getView('profile')
                 }
             }
         });
