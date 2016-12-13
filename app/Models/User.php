@@ -42,11 +42,6 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\RoleUser');
     }
 
-    public function vwUserEmployee()
-    {
-        return $this->hasOne('App\Models\VWUserEmployee');
-    }
-
     public function getFloorPlanAttribute()
     {
         return $this->empStation->fpStation;
@@ -55,11 +50,6 @@ class User extends Authenticatable
     public function getListFloorPlanAttribute()
     {
         return $this->empStation->fpStation->ListFloorPlan;
-    }
-
-    public function scopePosition($query)
-    {
-        return $this->empPositionHistories()->orderBy('id', 'desc')->first();
     }
 
     public function empPositionHistory()
@@ -72,7 +62,37 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\EmpPositionHist', 'emp_id');
     }
 
-    public function scopeSupervisors($query)
+    public function getCurrentPositionHistoryAttribute()
+    {
+        return $this->getPositionHistories()->first();
+    }
+
+    public function getCurrentPositionAttribute()
+    {
+        return $this->currentPositionHistory->employeePosition;
+    }
+
+    public function getCurrentDepartmentAttribute()
+    {
+        return $this->currentPosition->department;
+    }
+
+    public function getCurrentContractAttribute()
+    {
+        return $this->currentPosition->contract;
+    }
+
+    public function getCurrentClientAttribute()
+    {
+        return $this->currentContract->client;
+    }
+
+    public function scopeGetPositionHistories()
+    {
+        return $this->empPositionHistories()->orderBy('id', 'desc');
+    }
+
+    public function scopeGetSupervisors($query)
     {
         return $query->whereHas('empPositionHistory', function($q){
                 $q->where('sup_flag', 1)

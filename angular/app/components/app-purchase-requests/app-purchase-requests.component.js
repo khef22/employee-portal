@@ -1,22 +1,25 @@
 class AppPurchaseRequestsController{
-    constructor(API){
+    constructor(API,$scope){
         'ngInject';
 
         this.API = API;
+        this.$scope = $scope;
     }
 
     $onInit(){
         this.query = {
             order: 'id',
             limit: 10,
-            page: 1
+            page: 1,
+            status: 'waiting-for-approval'
         }; 
 
-        this.getList('waiting-for-approval');
+        this.selected = [];
+        this.getList();
         self = this;
     }
 
-    getList(status){
+    getList(){
         this.showLoader = true;
         this.list = "";
         this.API.all('purchaserequest/list').post(this.query).then(
@@ -28,9 +31,8 @@ class AppPurchaseRequestsController{
         );
     }
 
-    paginateDataList(page, limit){
-        self.query.page = page;
-        self.getList('waiting-for-approval');
+    paginateDataList(){
+        self.getList();
     }
 }
 

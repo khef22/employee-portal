@@ -29,6 +29,11 @@ class Employee extends Model
     	return $this->belongsTo('App\Models\Employee', 'supervisor_id');
     }
 
+    public function employeesUnderSupervisor()
+    {
+    	return $this->hasMany('App\Models\Employee', 'supervisor_id');
+    }
+
     public function getSupervisorAttribute()
     {
     	return $this->supervisorUser;
@@ -49,5 +54,19 @@ class Employee extends Model
     	];
 
     	return (array_key_exists($this->attributes['empstatus'], $result) ? $result[$this->attributes['empstatus']] : "No status added");
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User','user_id');
+    }
+
+    public function scopeGetSupervisors($query)
+    {
+        return $query->whereHas('user.empPositionHistory', function($q){
+                $q->where('sup_flag', 1)
+                  ->where('status', 1);
+            })
+            ->whereYear('datefinish', "<", 1000);
     }
 }

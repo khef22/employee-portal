@@ -24,7 +24,7 @@
               <div flex>
                   <!-- Data List Table -->
                   <md-table-container>
-                    <table md-table md-row-select multiple ng-model="selected" md-progress="purchaseRequestsCtrl.list">
+                    <table md-table md-row-select multiple ng-model="purchaseRequestsCtrl.selected" md-progress="purchaseRequestsCtrl.list">
                       <thead md-head md-order="purchaseRequestsCtrl.query.order" md-on-reorder="">
                         <tr md-row>
                           <th md-column md-order-by="id"><span>PR #</span></th>
@@ -40,12 +40,12 @@
                       <tbody md-body>
                         <tr md-row ng-repeat="data in purchaseRequestsCtrl.list">
                           <td md-cell>{{data.id}}</td>
-                          <td md-cell></td>
-                          <td md-cell></td>
-                          <td md-cell></td>
-                          <td md-cell></td>
-                          <td md-cell></td>
-                          <td md-cell></td>
+                          <td md-cell>{{data.type}}</td>
+                          <td md-cell>{{data.requestor.firstname}} {{data.requestor.lastname}}</td>
+                          <td md-cell>{{data.department}}</td>
+                          <td md-cell>&#8369;{{data.total}}</td>
+                          <td md-cell>{{data.date}}</td>
+                          <td md-cell>{{data.approval_status}}</td>
                           <td md-cell></td>
                         </tr>
                       </tbody>

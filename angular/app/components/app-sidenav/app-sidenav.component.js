@@ -12,6 +12,7 @@ class AppSidenavController{
         this.user = angular.fromJson(this.$sessionStorage.user);
         this.name = this.user.firstname+' '+this.user.lastname;
         this.empID = this.user.employee_id;
+        this.clockIsTicking = false;
         this.clockBtnIn = true;
         this.clockBtnOut = true;
         this.clockBtnBreak = true;
@@ -20,7 +21,20 @@ class AppSidenavController{
             'break': {'isOnBreak': false, 'time': 0},
             'work': {'isWorking': false, 'time': 0}
         };
+
         this.timeLogStatus();
+    }
+
+    clockTicking() {
+        if(this.clockIsTicking)
+        {
+            return false;
+        }
+
+        this.$interval(function() {
+            this.clock = Date.now();
+        }.bind(this), 1000);
+        this.clockIsTicking = true;
     }
 
     timeLogStatus() {
@@ -29,6 +43,7 @@ class AppSidenavController{
                 angular.extend(this.status, response);
 
                 this.countupTimer();
+                this.clockTicking();
 
                 this.clockBtnIn = (this.status.clockinTypes != 4) || false;
                 this.clockBtnBreak = (this.status.clockinTypes == 4) || false;

@@ -28,7 +28,7 @@ class ScheduleRequestsController{
 	}
 
 	fetchDataList(){		
-
+    
 		this.showLoader = true;		
 
 		this.API.all('/requests/schedule/list').post(this.query).then(function( response ){
@@ -56,7 +56,7 @@ class ScheduleRequestsController{
 	logRequest(ev, isEditMode, data){	
 
 		this.$mdDialog.show({
-
+      
 			resolve : {
 				isEditMode : function(){
 					return isEditMode;
@@ -69,9 +69,9 @@ class ScheduleRequestsController{
 
 			controller: ScheduleRequestsDialogController,
 			
-			controllerAs : 'vmDialog',	      
-
-			templateUrl: './views/app/components/schedule-requests/form-dialog.html',
+			controllerAs : 'vmDialog',
+      
+      templateUrl: './views/app/components/schedule-requests/form-dialog.html',
 			
 			parent: angular.element(document.body),
 			
@@ -226,6 +226,7 @@ class ScheduleRequestsDialogController{
 	submitDialog(){		
 
 		this.API.all('/requests/schedule/add').post(this.record).then(function( response ){
+
 			if ( response.succcess ) {
 				this.$mdDialog.hide();
 				this.ToastService.show('New Log Request successfully submitted.');

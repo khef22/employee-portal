@@ -17,7 +17,7 @@
                 <md-list-item class="control-btn">
                     <md-button class="md-raised md-success" ng-disabled="vm.clockBtnIn" ng-click="vm.clockTimeIn()">Time in</md-button>
                     <md-button class="md-raised md-primary" ng-disabled="vm.clockBtnBreak" ng-click="vm.clockBreak()">{{ vm.clockBtnBreakText }}</md-button>
-                    <md-button class="md-raised md-warn" ng-disabled="vm.clockBtnOut" ng-click="vm.clockTimeOut()">Time out</md-button>
+                    <md-button class="md-raised" ng-class="vm.clockBtnOut ? 'md-primary': 'md-warn'" ng-disabled="vm.clockBtnOut" ng-click="vm.clockTimeOut()">Time out</md-button>
                 </md-list-item>
                 <md-divider class="empty-space"></md-divider>
 
@@ -41,7 +41,7 @@
                     <p>Purchase Request</p>
                 </md-list-item>
 
-              <!--   <md-list-item class='menu' ng-click="vm.test()">
+                <!-- <md-list-item class='menu' ng-click="vm.test()">
                     <md-icon md-font-set="material-icons"> speaker_notes </md-icon>
                     <p>Announcements</p>
                 </md-list-item>
