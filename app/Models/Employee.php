@@ -29,6 +29,11 @@ class Employee extends Model
     	return $this->belongsTo('App\Models\Employee', 'supervisor_id');
     }
 
+    public function employeesUnderSupervisor()
+    {
+    	return $this->hasMany('App\Models\Employee', 'supervisor_id');
+    }
+
     public function getSupervisorAttribute()
     {
     	return $this->supervisorUser;

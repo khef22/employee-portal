@@ -87,12 +87,13 @@ class TimeLogController extends BaseController
     		"isOnBreak" => ($clockinTypes == 2),
     		"time" => $this->timeLogBreakDiff()
     	];
-    	$work = [
-    		"isWorking" => ($clockinTypes >= 1 &&  $clockinTypes < 4),
-    		"time" => $this->timeLogWorkDiff()
-    	];
+        $work = [
+            "isWorking" => ($clockinTypes >= 1 &&  $clockinTypes < 4),
+            "time" => $this->timeLogWorkDiff()
+        ];
+    	$timezone = date_default_timezone_get();
 
-    	return response()->json(compact('clockinTypes', 'lastDate', 'break', 'work'));
+    	return response()->json(compact('clockinTypes', 'lastDate', 'break', 'work', 'timezone'));
     }
 
     private function timeLogBreakDiff()
