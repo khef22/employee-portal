@@ -1,0 +1,61 @@
+<md-content layout="row" flex>
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+        <md-toolbar class="toolbar-nav">
+            <h1 class="md-toolbar-tools">Employee Portal</h1>
+        </md-toolbar>
+            <md-list flex>
+                <md-list-item class="md-3-line avatar-nav">
+                    <img ng-src="http://intranetdev.zylun.com:8082/files_uploaded/2011-449/abao 10000.jpg" class="md-avatar" alt="asd" md-whiteframe="2" />
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{vm.name}}</h3>
+                        <p class="sub-text">{{vm.empID}}</p>
+                        <p class="sub-text"><md-icon md-font-set="material-icons"> access_time </md-icon> Work Hours: {{vm.status.work.time | secondsToDateTime | date:'HH:mm:ss'}}</p>
+                        <p class="sub-text" ng-class="{'time-hidden': !vm.status.break.isOnBreak}"><md-icon md-font-set="material-icons"> access_time </md-icon> Break: {{vm.status.break.time | secondsToDateTime | date:'HH:mm:ss'}}</p>
+                    </div>
+                </md-list-item>
+                <md-divider></md-divider>
+                <md-list-item class="control-btn">
+                    <md-button class="md-raised md-success" ng-disabled="vm.clockBtnIn" ng-click="vm.clockTimeIn()">Time in</md-button>
+                    <md-button class="md-raised md-primary" ng-disabled="vm.clockBtnBreak" ng-click="vm.clockBreak()">{{ vm.clockBtnBreakText }}</md-button>
+                    <md-button class="md-raised" ng-class="vm.clockBtnOut ? 'md-primary': 'md-warn'" ng-disabled="vm.clockBtnOut" ng-click="vm.clockTimeOut()">Time out</md-button>
+                </md-list-item>
+                <md-divider class="empty-space"></md-divider>
+
+                <md-list-item class='menu' ui-sref="app.dashboard">
+                    <md-icon md-font-set="material-icons"> dashboard </md-icon>
+                    <p>Dashboard</p>
+                </md-list-item>
+
+                <md-list-item class='menu' ui-sref="app.schedulerequests">
+                    <md-icon md-font-set="material-icons"> assignment_ind </md-icon>
+                    <p>Schedule Requests</p>
+                </md-list-item>   
+
+                <md-list-item class='menu' href="http://kraken.zylun.ph:8081/glpi/">
+                    <md-icon md-font-set="material-icons"> Help </md-icon>
+                    <p>Help Desk</p>                    
+                </md-list-item>                
+
+                <md-list-item class='menu' ui-sref="app.purchaserequests">
+                    <md-icon md-font-set="material-icons"> assignment </md-icon>
+                    <p>Purchase Request</p>
+                </md-list-item>
+
+                <!-- <md-list-item class='menu' ng-click="vm.test()">
+                    <md-icon md-font-set="material-icons"> speaker_notes </md-icon>
+                    <p>Announcements</p>
+                </md-list-item>
+                <md-list-item class='menu' ng-click="vm.test()">
+                    <md-icon md-font-set="material-icons"> perm_contact_calendar </md-icon>
+                    <p>Time Card</p>
+                </md-list-item>
+                <md-list-item class='menu' ng-click="vm.test()">
+                    <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                    <p>Profile</p>
+                </md-list-item>
+                <md-list-item class='menu' ng-click="vm.test()">
+                    <md-icon md-font-set="material-icons"> domain </md-icon>
+                    <p>Company Info.</p>
+                </md-list-item> -->
+    </md-sidenav>
+</md-content>

@@ -1,17 +1,67 @@
-<md-content class="Page-Container DemoHeader">
-    <div layout="row">
-        <div flex="90" flex-offset="5" class="DemoHeader-container">
-            <div layout="row" layout-align="space-between">
-                <!--<img src="img/icons/logo.svg" ui-sref="app.landing" class="DemoHeader-logo"/>-->
-                <div layout="row" layout-align="center stretch">
-                    <!--<a hide-xs class="DemoHeader-link md-subhead" href="https://laravel-angular.readme.io" target="_blank">Docs</a>
-                    <a hide-xs class="DemoHeader-link md-subhead" href="https://www.youtube.com/channel/UCTiRXlOapSWfu02rtOdaGvA/playlists" target="_blank">Screencasts</a>
-                    <a hide-xs class="DemoHeader-link md-subhead" href="https://github.com/jadjoubran/laravel5-angular-material-starter" target="_blank">Github</a>
-                    <iframe class="DemoHeader-github" ng-src="{{vm.githubWidget}}" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>-->
-                    <button ng-click="vm.logout()" ng-if="vm.islogged">Logout</button>
-                </div>
-            </div>
-        </div>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <!-- <h2>
+          <span>Toolbar with Standard Buttons</span>
+        </h2> -->
+        <md-button class="md-icon-button" ng-click="vm.openSideNav()" hide-gt-sm>
+            <md-icon md-font-set="material-icons"> dehaze </md-icon>
+        </md-button>
+        <span flex></span>
+        <md-menu>
+            <md-button class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
+                <md-icon md-font-set="material-icons"> notifications </md-icon>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button>
+                        <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                        Notification 1
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button>
+                        <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                        Notification 2
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button>
+                        <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                        Notification 3
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button>
+                        <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                        Notification 4
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button>
+                        <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                        Notification 5
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+        <md-menu>
+            <md-button class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
+                <md-icon md-font-set="material-icons"> view_module </md-icon>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-button ui-sref="app.profile">
+                        <md-icon md-font-set="material-icons"> account_circle </md-icon>
+                        Profile Settings
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button ng-click="vm.logout()">
+                        <md-icon md-font-set="material-icons"> power_settings_new </md-icon>
+                        Log out
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
     </div>
-</md-content>
-<div class="DemoHeader-spacer"></div>
+</md-toolbar>

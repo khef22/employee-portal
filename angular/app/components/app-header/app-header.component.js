@@ -8,6 +8,7 @@ class AppHeaderController{
         this.ToastService = ToastService;
     }
 
+
     $onInit(){
         //defer iframe loading
         //let url = 'https://ghbtns.com/github-btn.html?user=jadjoubran&repo=laravel5-angular-material-starter&type=star&count=true&size=large';
@@ -25,9 +26,24 @@ class AppHeaderController{
     logout(){
         if (this.$auth.isAuthenticated()) {
             this.$auth.logout();
-            this.$state.go('app.login');
+            this.$state.go('app2.login');
             this.ToastService.show('You are now logged out.');
+
+            this.$auth.unlink('google');
         }
+    }
+
+    openMenu($mdOpenMenu, ev){
+      //originatorEv = ev;
+      $mdOpenMenu(ev);
+    }
+
+    openSideNav() {
+        // $mdSidenav(navID)
+        //   .toggle()
+        //   .then(function () {
+        //     //do something here.
+        //   });
     }
 }
 

@@ -1,0 +1,88 @@
+<div ng-cloak>  
+
+  <md-content>
+
+    <!-- Module Tab -->
+    <md-tabs md-dynamic-height md-border-bottom>
+
+      <!-- Dashboard Tab -->
+      <md-tab label="Announcements" ng-click="dashboardCtrl.fetchDataList()">
+        <md-content class="md-padding">
+
+          <!-- Module Progress Loader -->
+          <ajax-loader show-loader="dashboardCtrl.showLoader"></ajax-loader>
+          <!-- !Module Progress Loader -->
+
+          <section layout="row" layout-sm="column" layout-align="left left" layout-wrap>
+            <!-- <md-button class="md-raised md-primary" ng-click="dashboardCtrl.logRequest($event);">Log New Request</md-button>      -->
+            <md-button class="md-primary md-raised demo-menu-open-button"
+                       ng-click="dashboardCtrl.showFilters($event)">
+              Filters
+            </md-button>
+         
+          </section>
+
+          <div layout-md="column">
+              <div flex>
+                  <!-- Data List Table -->
+                  <!-- exact table from live demo -->
+                  <md-table-container>
+                    <table md-table md-row-select multiple ng-model="selected" md-progress="dashboardCtrl.mainDataList.data">
+                      <thead md-head md-order="dashboardCtrl.query.order" md-on-reorder="dashboardCtrl.paginateDataList">
+                        <tr md-row>
+                          <th md-column md-order-by="subject"><span>Subject</span></th>
+                          <th md-column md-order-by="description"><span>Description</span></th>
+                          <th md-column md-order-by="created_by">Created By</th>
+                          <th md-column md-order-by="created_at">Created At</th>                         
+                        </tr>
+                      </thead>
+                      <tbody md-body>
+                        <tr md-row md-select="data" md-select-id="id" md-auto-select ng-repeat="data in dashboardCtrl.mainDataList.data">
+                          <td md-cell>{{data.subject}}</td>
+                          <td md-cell>{{data.description | trustHtml}}</td>
+                          <td md-cell>{{data.employee.firstname | capitalize}} {{ data.employee.lastname | capitalize}}</td>
+                          <td md-cell>{{data.created_at | date:'yyyy-MM-dd hh:mm a'}}</td>                        
+                        </tr>
+                      </tbody>
+                    </table>
+                  </md-table-container>
+
+                  <md-table-pagination md-limit="dashboardCtrl.query.limit" md-limit-options="[10, 25, 50]" md-page="dashboardCtrl.query.page" md-total="{{dashboardCtrl.mainDataList.total}}" md-on-paginate="dashboardCtrl.paginateDataList" md-page-select></md-table-pagination>                  
+                  <!-- !Data List Table -->
+              </div>
+          </div>
+
+        </md-content>
+      </md-tab>
+      <!-- !Dashboard Tab -->
+
+      <!-- Dashboard Handbook Tab -->
+      <md-tab label="Handbook">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Handbook</h1>        
+        </md-content>
+      </md-tab>    
+      <!-- !Dashboard Handbook Tab -->
+
+      <!-- Dashboard Company Goals Tab -->
+      <md-tab label="Company Goals">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Company Goals</h1>        
+        </md-content>
+      </md-tab>    
+      <!-- !Dashboard Company Goals Tab -->
+
+      <!-- Dashboard Timecard Tab -->
+      <md-tab label="Timecard">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Timecard</h1>        
+        </md-content>
+      </md-tab>    
+      <!-- !Dashboard Timecard Tab -->
+
+    </md-tabs>
+    <!-- !Module Tab -->
+
+  </md-content>
+
+</div>

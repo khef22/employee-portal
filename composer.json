@@ -10,7 +10,9 @@
         "tymon/jwt-auth": "0.5.*",
         "laravelangular/generators": "2.7.*",
         "irazasyed/jwt-auth-guard": "^1.0",
-        "barryvdh/laravel-cors": "^0.8.2"
+        "barryvdh/laravel-cors": "^0.8.2",
+        "guzzlehttp/guzzle": "~6.1.1",
+        "guzzlehttp/oauth-subscriber": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -1,11 +1,11 @@
-export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
+export function RoutesConfig($stateProvider, $urlRouterProvider) {
 	'ngInject';
 
 	let getView = (viewName) => {
 		return `./views/app/pages/${viewName}/${viewName}.page.html`;
 	};
 
-	$urlRouterProvider.otherwise('/');
+	$urlRouterProvider.otherwise('/dashboard');
 	
 	/* $locationProvider.html5Mode({
 		enabled: true,
@@ -23,6 +23,9 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 			abstract: true,
             data: {},
 			views: {
+				sidenav: {
+					templateUrl: getView('sidenav')
+				},
 				header: {
 					templateUrl: getView('header')
 				},
@@ -32,16 +35,41 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
 				main: {}
 			}
 		})
-		.state('app.main', {
+		.state('app2', {
+			abstract: true,
+            data: {},
+			views: {
+				main: {}
+			}
+		})
+		.state('app.dashboard', {
 			data: {auth: true},
-            url: '/',
+            url: '/dashboard',
             views: {
                 'main@': {
-                    templateUrl: getView('main')
+                    templateUrl: getView('dashboard')
                 }
             }
         })
-        .state('app.login', {
+        .state('app.purchaserequests', {
+			data: {auth: true},
+            url: '/purchase-requests',
+            views: {
+                'main@': {
+                    templateUrl: getView('purchase-requests')
+                }
+            }
+        })  
+        .state('app.schedulerequests', {
+			data: {auth: true},
+            url: '/schedule-requests',
+            views: {
+                'main@': {
+                    templateUrl: getView('schedule-requests')
+                }
+            }
+        })
+        .state('app2.login', {
 			url: '/login',
 			views: {
 				'main@': {
@@ -70,6 +98,14 @@ export function RoutesConfig($stateProvider, $urlRouterProvider, $locationProvid
             views: {
                 'main@': {
                     templateUrl: getView('reset-password')
+                }
+            }
+        })
+        .state('app.profile', {
+            url: '/profile',
+            views: {
+                'main@': {
+                    templateUrl: getView('profile')
                 }
             }
         });

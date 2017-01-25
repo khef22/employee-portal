@@ -1,0 +1,110 @@
+<div ng-cloak>  
+
+  <md-content>
+
+    <!-- Module Progress Loader -->
+    <ajax-loader show-loader="scheduleRequestsCtrl.showLoader"></ajax-loader>
+    <!-- !Module Progress Loader -->
+
+    <!-- Module Tab -->
+    <md-tabs md-dynamic-height md-border-bottom>
+
+      <!-- Schedule Request Tab -->
+      <md-tab label="List of Schedule Requests" ng-click="scheduleRequestsCtrl.fetchDataList()">
+        <md-content class="md-padding">
+
+
+          <section layout="row" layout-sm="column" layout-align="left left" layout-wrap>
+
+            <md-button class="md-raised md-primary" ng-click="scheduleRequestsCtrl.logRequest($event, false, false);">Log New Request</md-button>  
+
+            <md-menu md-offset="0 -7">
+              <md-button aria-label="Filters" class="md-primary md-raised" ng-click="$mdOpenMenu($event)">
+                Filters
+              </md-button>
+              <md-menu-content width="4">
+                <md-menu-item ng-repeat="item in ['Processed', 'Approved', 'Pending']">
+                  <md-button ng-click="scheduleRequestsCtrl.triggerFilter($index)"> <span md-menu-align-target>{{item}}</span> </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+
+            <md-menu md-offset="0 -7">
+              <md-button aria-label="Bulk Actions" class="md-primary md-raised" ng-click="$mdOpenMenu($event)">
+                Bulk Actions
+              </md-button>
+              <md-menu-content width="4">
+                <md-menu-item ng-repeat="item in ['Remove Selected', 'Edit Selected']">
+                  <md-button ng-click="scheduleRequestsCtrl.triggerActions($index)"> <span md-menu-align-target>{{item}}</span> </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+         
+          </section>
+
+          <div layout-md="column">
+              <div flex>
+                  <!-- Data List Table -->
+                  <!-- exact table from live demo -->
+                  <md-table-container>
+                    <table md-table md-row-select multiple ng-model="scheduleRequestsCtrl.selectedItems" md-progress="scheduleRequestsCtrl.mainDataList.data">
+                      <thead md-head md-order="scheduleRequestsCtrl.query.order" md-on-reorder="scheduleRequestsCtrl.paginateDataList">
+                        <tr md-row>
+                          <th md-column md-order-by="id"><span>ID</span></th>
+                          <th md-column md-order-by="change_date_from"><span>Date to Change</span></th>                          
+                          <th md-column md-order-by="request_date_from">Date of Request</th>                          
+                          <th md-column md-order-by="shift">Shift</th>
+                          <th md-column md-order-by="approval_status">Status</th>
+                          <th md-column md-order-by="date_filed">Date Filed</th>
+                          <th md-column>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody md-body>
+                        <tr md-row md-select="data" md-select-id="id" md-auto-select ng-repeat="data in scheduleRequestsCtrl.mainDataList.data">
+                          <td md-cell>{{data.id}}</td>
+                          <td md-cell>{{data.change_date_from | date : 'medium'}}</td>                          
+                          <td md-cell>{{data.request_date_from | date : 'yyyy-MM-dd'}}</td>                          
+                          <td md-cell>{{data.request_start_time | date : 'HH:mm a'}} - {{ data.request_end_time | date : 'HH:mm a'}}</td>
+                          <td md-cell>
+                            <md-icon md-font-set="material-icons">  {{ data.approval_status == 1 ? 'thumb_up' : 'sync' }} </md-icon>
+                            {{ data.approval_status == 1 ? 'Approved' : 'Pending' }}
+                          </td>
+                          <td md-cell>{{data.date_filed | date:'mediumDate'}}</td>            
+                          <td md-cell>
+                            <md-button class="md-icon-button" ng-click="scheduleRequestsCtrl.logRequest($event, true, data);"> 
+                                <md-icon md-font-set="material-icons"> search </md-icon>
+                                View
+                            </md-button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </md-table-container>
+
+                  <md-table-pagination md-limit="scheduleRequestsCtrl.query.limit" md-limit-options="[10, 25, 50]" md-page="scheduleRequestsCtrl.query.page" md-total="{{scheduleRequestsCtrl.mainDataList.total}}" md-on-paginate="scheduleRequestsCtrl.paginateDataList" md-page-select></md-table-pagination>                  
+                  <!-- !Data List Table -->
+              </div>
+          </div>
+
+        </md-content>
+      </md-tab>
+      <!-- !Schedule Request Tab -->
+
+      <!-- Schedule Request Settings Tab -->
+      <md-tab label="Settings">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Settings</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
+          <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+          <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+        </md-content>
+      </md-tab>    
+
+      <!-- !Schedule Request Settings Tab -->
+
+    </md-tabs>
+    <!-- !Module Tab -->
+
+  </md-content>
+
+</div>

@@ -3,3 +3,5 @@ export function TrustHtmlFilter($sce) {
 		return $sce.trustAsHtml(html);
 	};
 }
+
+TrustHtmlFilter.$inject = [ '$sce' ];

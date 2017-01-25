@@ -38,7 +38,7 @@ class ResetPasswordController {
 
         this.API.all('auth/password/reset').post(data).then(() => {
             this.ToastService.show('Password successfully changed');
-            this.$state.go('app.login');
+            this.$state.go('app2.login');
         });
     }
 }

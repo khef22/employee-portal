@@ -1,0 +1,177 @@
+<md-dialog aria-label="Log New Request">
+  <form ng-cloak>
+
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{ vmDialog.dialogTitle }}</h2>      
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content class="md-dialog-content">
+        
+      <form name="scheduleRequestForm" ng-model="vmDialog.scheduleRequestForm" novalidate>
+
+        <div layout="column" layout-md layout-fill layout-wrap="false" layout-align="space-around stretch">
+          
+          <div flex="100">
+            
+            <h4>Timezone</h4>
+            
+            <p ng-if="vmDialog.isEditMode">{{ vmDialog.selectedData.timezone }}</p>
+
+            <md-input-container ng-if="!vmDialog.isEditMode">
+              <label>Select Timezone</label>
+              <md-select aria-label="Timezone" ng-required="true" required name="timezone" ng-model="vmDialog.record.timezone">
+                <md-option ng-value="timezone" ng-selected="timezone.substr(1,6) == vmDialog.currentDateTimeZone" ng-repeat="timezone in vmDialog.timezones">{{ timezone }}</md-option>
+              </md-select>
+              <div ng-messages="scheduleRequestForm.timezone.$error">
+                <div ng-message="required">This field is required!</div>
+              </div>  
+            </md-input-container>
+
+          </div>
+
+          <div flex="100">
+
+            <h4>Change/Requested Date :</h4>
+
+            <p ng-if="vmDialog.isEditMode">{{ vmDialog.selectedData.request_date_from | date : 'medium' }}</p>
+            <md-input-container ng-if="!vmDialog.isEditMode">
+              <label>Request Date :</label>
+              <md-datepicker required name="request_date_from" md-open-on-focus ng-model="vmDialog.record.request_date_from" md-min-date="vmDialog.minDate" md-date-filter="vmDialog.onlyZylunDays"></md-datepicker>   
+              <div ng-messages="scheduleRequestForm.request_date_from.$error">
+                <div ng-message="valid">The entered value is not a date!</div>
+                <div ng-message="required">This date is required!</div>
+                <div ng-message="mindate">Date is too early!</div>
+                <div ng-message="maxdate">Date is too late!</div>
+                <div ng-message="filtered">Only weekends are allowed!</div>
+              </div>
+            </md-input-container>
+
+          </div>
+
+          <div flex="100">
+             
+            <h4>Schedule Date :</h4>
+
+            <p ng-if="vmDialog.isEditMode">{{ vmDialog.selectedData.change_date_from | date : 'yyyy-MM-dd' }}</p>  
+
+            <md-input-container ng-if="!vmDialog.isEditMode">
+              <label>Schedule Date :</label>
+              <md-datepicker md-min-date="vmDialog.minDate" md-open-on-focus md-date-filter="vmDialog.onlyZylunDays" required="true" required name="change_date_from" ng-model="vmDialog.record.change_date_from"></md-datepicker>
+              <div ng-messages="scheduleRequestForm.change_date_from.$error">
+                <div ng-message="valid">The entered value is not a date!</div>
+                <div ng-message="required">This date is required!</div>
+                <div ng-message="mindate">Date is too early!</div>
+                <div ng-message="maxdate">Date is too late!</div>
+                <div ng-message="filtered">Only weekends are allowed!</div>
+              </div>
+            </md-input-container>
+
+          </div>
+
+          <div flex="100">
+
+            <h4>Schedule Time</h4>
+
+            <p ng-if="vmDialog.isEditMode">{{ vmDialog.selectedData.request_start_time | date : 'HH:mm a'}} - {{  vmDialog.selectedData.request_end_time | date : 'HH:mm a'}}</p>
+            
+            <div layout="row" ng-if="!vmDialog.isEditMode" layout-wrap="false" layout-fill layout-align="space-around stretch">
+              
+              <div flex>
+                
+                <h4>Starts At :</h4>
+
+                <md-input-container>
+                  <label>Hours</label>
+                  <md-select ng-model="vmDialog.record.start_hr_cs" ng-required="true" name="start_hr_cs">
+                    <md-option ng-repeat="hours in vmDialog.time_hours" value="{{hours}}">{{hours}}</md-option>
+                  </md-select>  
+                </md-input-container>
+
+                <md-input-container>
+                  <label>Minutes</label>
+                  <md-select ng-model="vmDialog.record.start_min_cs" ng-required="true " name="start_min_cs">
+                    <md-option ng-repeat="minutes in vmDialog.time_minutes" value="{{minutes}}">{{minutes}}</md-option>
+                  </md-select>                 
+                </md-input-container>
+                
+                <md-input-container>
+                  <label>AM/PM</label>
+                  <md-select ng-model="vmDialog.record.start_am_cs" ng-required="true" name="start_am_cs">
+                    <md-option ng-repeat="am_pm in vmDialog.time_am_pm" value="{{am_pm}}">{{am_pm}}</md-option>
+                  </md-select>
+                </md-input-container>                  
+
+              </div>
+
+              <div flex>
+
+                <h4>Ends At :</h5>
+
+                <md-input-container>
+                  <label>Hours</label>
+                  <md-select ng-model="vmDialog.record.end_hr_cs" ng-required="true" name="end_hr_cs">
+                    <md-option ng-repeat="hours in vmDialog.time_hours" value="{{hours}}">{{hours}}</md-option>
+                  </md-select>  
+                </md-input-container>
+
+                <md-input-container>
+                  <label>Minutes</label>
+                  <md-select ng-model="vmDialog.record.end_min_cs" ng-required="true" name="end_min_cs">
+                    <md-option ng-repeat="minutes in vmDialog.time_minutes" value="{{minutes}}">{{minutes}}</md-option>
+                  </md-select>                 
+                </md-input-container>
+
+                <md-input-container>
+                  <label>AM/PM</label>
+                  <md-select ng-model="vmDialog.record.end_am_cs" ng-required="true" name="end_am_cs">
+                    <md-option ng-repeat="am_pm in vmDialog.time_am_pm" value="{{am_pm}}">{{am_pm}}</md-option>
+                  </md-select>
+                </md-input-container>
+                
+              </div>
+
+            </div>
+
+          </div>
+
+          <div flex="100">
+              <md-input-container>
+                <h4>Reason for Changing Schedule:</h4>
+                <p ng-if="vmDialog.isEditMode">{{ vmDialog.selectedData.reason_for_changesched }}</p>
+                <textarea ng-if="!vmDialog.isEditMode" cols="35" rows="5" ng-required="true" ng-model="vmDialog.record.reason_for_changesched" md-placeholder="Enter atleast 10 words"></textarea>
+              </md-input-container>
+          </div>    
+
+          <div flex="100">
+              <md-input-container>
+                <h4>Client Approval(if necessary):</h4>
+                <input ng-if="!vmDialog.isEditMode" type="file" name="client_approval_file" ng-required="vmDialog.fileIsRequired" ng-model="vmDialog.record.client_approval_file"/>
+              </md-input-container>
+          </div>
+
+        </div>        
+
+      </form>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      
+      <span flex></span>
+      
+      <md-button class="" ng-if="!vmDialog.isEditMode" ng-click="vmDialog.cancelDialog();">
+        Cancel/Abandon
+      </md-button>
+
+      <md-button class="" ng-if="vmDialog.isEditMode"ng-click="vmDialog.cancelDialog();">
+        Close
+      </md-button>      
+
+      <md-button ng-if="!vmDialog.isEditMode" class="md-raised md-primary" ng-disabled="scheduleRequestForm.$invalid"  ng-click="vmDialog.submitDialog(scheduleRequestForm.$valid);">
+        Submit Request
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

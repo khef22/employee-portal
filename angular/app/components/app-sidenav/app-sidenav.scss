@@ -1,0 +1,52 @@
+.toolbar-nav {
+	background-color: #fae71f !important;
+
+	.md-toolbar-tools {
+		color: #000 !important;
+	}
+}
+
+.avatar-nav {
+	padding: 20px 25px !important;
+
+	.md-avatar {
+		height: 80px !important;
+		width: 80px !important;
+	}
+	.sub-text {
+		font-size: 12px;
+	}
+}
+
+.control-btn {
+	min-height: 0 !important;
+}
+
+.empty-space {
+	margin-bottom: 20px;
+}
+
+.menu {
+	cursor: pointer;
+
+	&:hover {
+		background-color: #f3f3f3;
+
+		md-icon {
+			color: #fae71f;
+		}
+	}
+
+	md-icon:first-child {
+		margin: 20px  15px 20px 29px !important;
+	}
+}
+
+.md-success:not([disabled]) {
+	background-color: #4CAF50 !important;
+	color: #fff !important;
+}
+
+.time-hidden {
+	visibility: hidden;
+}

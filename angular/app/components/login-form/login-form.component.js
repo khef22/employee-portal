@@ -1,18 +1,19 @@
 class LoginFormController {
-	constructor($auth, ToastService, $state) {
+	constructor($auth, ToastService, $state,$sessionStorage) {
 		'ngInject';
 
 		this.$auth = $auth;
 		this.ToastService = ToastService;
 		this.$state = $state;
+		this.$sessionStorage = $sessionStorage;
 	}
 
     $onInit(){
         this.username = '';
         this.password = '';
-		
+
 		if(this.$auth.isAuthenticated()){
-			this.$state.go('app.main')
+			this.$state.go('app.dashboard')
 		}
     }
 
@@ -25,11 +26,28 @@ class LoginFormController {
 		this.$auth.login(user)
 			.then((response) => {
 				this.$auth.setToken(response.data);
-				this.$state.go('app.main');
+				this.getUserInfo(response);
+				this.$state.go('app.dashboard');
 				this.ToastService.show('Logged in successfully.');
 			})
 			.catch(this.failedLogin.bind(this));
 			
+	}
+
+	authenticate(provider){
+		this.$auth.authenticate(provider)
+			.then((response) => {
+				this.$auth.setToken(response.data);
+				this.getUserInfo(response);
+				this.$state.go('app.dashboard');
+				this.ToastService.show('Logged in successfully.');
+			})
+			.catch(this.failedLogin.bind(this));
+	}
+
+	getUserInfo(response){
+		response = angular.fromJson(response.data);
+		this.$sessionStorage.user = response.data.user;
 	}
 
 	failedLogin(response) {
